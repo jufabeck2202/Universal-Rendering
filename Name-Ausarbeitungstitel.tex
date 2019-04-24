@@ -1,0 +1,128 @@
+\documentclass[runningheads]{llncs}
+
+%---- Sonderzeichen-------%
+\usepackage[ngerman]{babel}
+%---- Codierung----%
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{llncsdoc}
+%----- Mathematischer Zeichenvorrat---%
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumerate}
+% fuer die aktuelle Zeit
+\usepackage{scrtime}
+\usepackage{listings}
+\usepackage{subfigure}
+\usepackage{hyperref}
+\usepackage{lipsum}
+
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+% -------------------------------------------------------------------------------------------------
+% -------------------------------------------------------------------------------------------------
+\begin{document}
+
+\mainmatter
+\title{Titel der Seminararbeit}
+\titlerunning{Titel der Seminararbeit}
+\author{Name des Autors}
+\authorrunning{Titel des Seminars}
+\institute{Betreuer: Betreuername}
+\date{23.07.2007}
+\maketitle
+
+% -------------------------------------------------------------------------------------------------
+
+\begin{abstract}
+  An dieser Stelle sollte später eine Kurzzusammenfassung stehen.
+\end{abstract}
+
+% -------------------------------------------------------------------------------------------------
+
+\section{Einleitung}
+\label{sec:Einleitung}
+
+\lipsum
+
+% -------------------------------------------------------------------------------------------------
+
+\section{Grundlagen}
+\label{sec:Grundlagen}
+
+\lipsum[1-2]
+
+Dies ist ein Zitat \cite{becker2008a}.
+
+\subsection{Beispiel: Tabellen}
+\label{subsec:Tables}
+
+\lipsum[3]
+
+\begin{table}[h]
+  \centering
+  \caption{Eine Tabelle}
+  \label{tab:atable}
+  \begin{tabular}{|r|l|} \hline
+    abc & def\\ \hline
+    ghi & jkl\\ \hline
+    123 & 456\\ \hline
+    789 & 0AB\\ \hline
+  \end{tabular}
+\end{table}
+
+\lipsum[4]
+
+\subsection{Beispiel: Abbildungen}
+\label{subsec:Abbildungen}
+
+\lipsum[5-6]
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=4cm]{IWI-HsKA_CMYK_V01}
+  \caption{IWI Logo}
+  \label{fig:iwilogo}
+\end{figure}
+
+\lipsum[7]
+
+% -------------------------------------------------------------------------------------------------
+
+\section{Konzeption}
+\label{sec:Konzeption}
+\lipsum[8-10]
+
+% -------------------------------------------------------------------------------------------------
+
+\section{Durchführung}
+\label{sec:Durchführung}
+\lipsum[11-13]
+
+% -------------------------------------------------------------------------------------------------
+
+\section{Evaluation und Diskussion}
+\label{sec:Evaluation}
+
+\lipsum[14-15]
+
+% -------------------------------------------------------------------------------------------------
+
+\section{Fazit und Ausblick}
+\label{sec:Fazit}
+
+\lipsum[16]
+
+% -------------------------------------------------------------------------------------------------
+
+% Normaler LNCS Zitierstil
+%\bibliographystyle{splncs}
+\bibliographystyle{itmalpha}
+% TODO: Ändern der folgenden Zeile, damit die .bib-Datei gefunden wird
+\bibliography{literatur}
+
+\end{document}
