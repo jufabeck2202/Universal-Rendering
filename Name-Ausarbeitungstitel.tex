@@ -25,16 +25,19 @@
 
 % -------------------------------------------------------------------------------------------------
 % -------------------------------------------------------------------------------------------------
-\begin{document}
 
 \mainmatter
-\title{Titel der Seminararbeit}
-\titlerunning{Titel der Seminararbeit}
-\author{Name des Autors}
+\title{Server Side Rendering}
+\titlerunning{Server Side Rendering}
+\author{Julian Beck}
 \authorrunning{Titel des Seminars}
-\institute{Betreuer: Betreuername}
+\institute{Betreuer: Prof. Dr. rer. nat. Christian Zirpins}
 \date{23.07.2007}
+\begin{document}
+\let\oldaddcontentsline\addcontentsline
+\def\addcontentsline#1#2#3{}
 \maketitle
+\def\addcontentsline#1#2#3{\oldaddcontentsline{#1}{#2}{#3}}
 
 % -------------------------------------------------------------------------------------------------
 
@@ -43,6 +46,7 @@
 \end{abstract}
 
 % -------------------------------------------------------------------------------------------------
+\tableofcontents 
 
 \section{Einleitung}
 \label{sec:Einleitung}
