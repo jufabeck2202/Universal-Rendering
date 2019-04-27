@@ -1,0 +1,117 @@
+\documentclass[runningheads]{llncs}
+
+%---- Sonderzeichen-------%
+\usepackage[ngerman]{babel}
+%---- Codierung----%
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{llncsdoc}
+%----- Mathematischer Zeichenvorrat---%
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumerate}
+% fuer die aktuelle Zeit
+\usepackage{scrtime}
+\usepackage{listings}
+\usepackage{subfigure}
+\usepackage{hyperref}
+
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+% -------------------------------------------------------------------------------------------------
+% -------------------------------------------------------------------------------------------------
+
+\mainmatter
+\title{Server Side Rendering}
+\titlerunning{Server Side Rendering}
+\author{Julian Beck}
+\authorrunning{Julian Beck}
+\institute{Betreuer: Prof. Dr. rer. nat. Christian Zirpins}
+\date{01.05.2019}
+\begin{document}
+\let\oldaddcontentsline\addcontentsline
+\def\addcontentsline#1#2#3{}
+\maketitle
+\def\addcontentsline#1#2#3{\oldaddcontentsline{#1}{#2}{#3}}
+
+% -------------------------------------------------------------------------------------------------
+
+\begin{abstract}
+  An dieser Stelle sollte später eine Kurzzusammenfassung stehen.
+\end{abstract}
+
+% -------------------------------------------------------------------------------------------------
+\tableofcontents 
+\newpage
+% -------------------------------------------------------------------------------------------------
+
+\section{Einleitung}
+\label{sec:Einleitung}
+
+
+\subsection{Anforderungen an eine Webanwendung}
+\label{subsec:Anforderungen an eine Webanwendung}
+
+% -------------------------------------------------------------------------------------------------
+
+\section{Klassische Webseiten}
+\label{sec:Klassische Webseiten}
+
+
+\subsection{Dynamische Webseiten mit Ajax}
+\label{subsec:Dynamische Webseiten mit Ajax}
+
+
+
+Dies ist ein Zitat \cite{becker2008a}.
+
+% -------------------------------------------------------------------------------------------------
+
+\section{Single Page Applications}
+\label{sec:Single Page Applications}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=4cm]{IWI-HsKA_CMYK_V01}
+  \caption{IWI Logo}
+  \label{fig:iwilogo}
+\end{figure}
+
+% -------------------------------------------------------------------------------------------------
+
+\section{Server Site Rendering}
+\label{sec:Server Site Rendering}
+
+\subsection{Isomorphic JavaScript}
+\label{subsec:Isomorphic JavaScript}
+
+\subsection{Virtual DOM}
+\label{subsec:Virtual DOM}
+
+\subsection{Performance}
+\label{subsec:Virtual DOM}
+% -------------------------------------------------------------------------------------------------
+
+\section{Frameworks}
+\label{sec:Evaluation}
+
+
+% -------------------------------------------------------------------------------------------------
+
+\section{Fazit und Ausblick}
+\label{sec:Fazit}
+
+
+% -------------------------------------------------------------------------------------------------
+
+% Normaler LNCS Zitierstil
+%\bibliographystyle{splncs}
+\bibliographystyle{itmalpha}
+% TODO: Ändern der folgenden Zeile, damit die .bib-Datei gefunden wird
+\newpage
+\bibliography{literatur}
+
+\end{document}
