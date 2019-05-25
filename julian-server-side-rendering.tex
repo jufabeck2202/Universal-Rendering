@@ -786,9 +786,52 @@ Die Universal Rendering Seite kann jetzt über einen spezifizierten Port aufgeru
 
 \subsection{Vue.js und Nuxt.js}
 \label{subsec:Vue.js und Nuxt.js}
+Vue ist ein weiteres clientseitiges JavaScript Framework zum Erstellen von Single Page Anwendungen. 
+Es wurde 2014 von Evan You veröffentlicht und 
+wird seitdem von der Community weiterentwickelt. 
+In den letzten Monaten ist die Popularität von Vue gestiegen und 
+es ist aktuell das Projekt mit den meisten Sternen auf Github. 
+Vue.js besitzt auch ein virtuelles DOM, 
+was Universal rendern ermöglicht. 
+Um dies zu vereinfachen gibt es das Open Source Framework Nuxt.js.
+
+Nuxt.js ähnelt stark Next.js, 
+der einzige Unterschied ist, 
+dass es Vue.js anstelle von React für das Schreiben des Interface Codes verwendet. 
+Nuxt.js hat den gleichen dateibasierten Ansatz und ermöglicht automatisches Universal rendern von Anwendungen.
+
+Neben dem Universal Rendering bietet Nuxt.js auch die Möglichkeit statische Dateien aus der Anwendung zu generieren und 
+prerendering zu verwenden.
+Über npm run generate generiert nuxt.js ein dist Ordner mit einer index.html Datei 
+die einfach von einem Server bereitgestellt werden kann. 
+So kann die Seite als klassische SPA mit vorgerenderten Seiten für eine bessere Suchmaschinenoptimierung verwendet werden.
 
 \subsection{Angular Universal}
 \label{subsec:Angular Universal}
+Angular.js (Angular 1) ist ein weiteres Clientseitiges Framework, 
+dass 2010 von Google veröffentlicht wurde. 
+Mit der Einführung von Angular 2 wurde es durch den virtuellen DOM möglich, 
+das Angular Framework auch als Universal Anwendung zu benutzen, 
+genannt Angular Universal. 
+
+Ab Angular-Version 4, 
+ist die Universal Funktion nativ im Framework als Modul eingebunden. 
+Über das @angular/platform-server Modul ist es mit wenigen Schritten möglich, 
+eine Universal Anwendung zu entwickeln. 
+Das Modul enthält ähnlich wie React eine Methode, 
+welche die Anwendung rendert und das Resultat als String zurückgibt. 
+Dies ermöglicht das Vorrendern der Anwendung auf dem Server. 
+Auf der Clientseite findet anschließend die Hydration statt und 
+die Anwendung wird interaktiv. 
+
+Im Gegensatz zu Nuxt.js und Next.js bietet Angular Universal keine 
+“out of the Box” Universal Rendering Möglichkeit, 
+es müssen die benötigten Module importiert werden um dies zu erreichen. 
+
+Angular bietet das Hilfswerkzeug Angular CLI (Command Line Interface) an, 
+dass beim Erstellen einer Universal Anwendung hilft. 
+Die Angular CLI ermöglicht das Erstellen und Ausführen einer Angular Anwendung und 
+erlaubt es prerendering oder Universal Rendering zu verwenden. 
 
 \newpage
 % -------------------------------------------------------------------------------------------------
@@ -796,11 +839,67 @@ Die Universal Rendering Seite kann jetzt über einen spezifizierten Port aufgeru
 \section{Universal Rendering in der Praxis}
 \label{sec:Universal Rendering in der Praxis}
 
+Die Zeit bis eine Webseite geladen ist und der Benutzer Inhalte sehen kann, 
+wird immer wichtiger. 
+Laut einem Radware-Bericht war der durchschnittliche Benutzer 1999 bereit, 
+8 Sekunden auf das Laden einer Seite zu warten. 
+Bis 2010 gaben 57\% der Online-Käufer an, dass sie eine Seite nach 3 Sekunden laden verlassen würden. Amazon und Walmart bestätigen, dass für alle 100 Millisekunden Verbesserungen der Ladezeit, der Umsatz der Website bis zu 1% steigt.
+
+Gerade bei Online Shops ist das Verwenden von Universal rendering sinnvoll, 
+da der Benutzer schnell die Verkaufsartikel angezeigt bekommt und nicht warten muss, 
+bis die ganze Seite initialisiert ist. 
+Des weiteren können die Artikel einfach von Suchmaschinen indexiert werden, 
+wodurch sie besser von Benutzern gefunden werden können.
+
+Wegen der besseren Performance für den Nutzer und bessere SEO, 
+hat sich Walmart 2016 entschieden, 
+Universal rendering einzusetzen. 
+Walmart hat dafür ein eigenes Framework namens Electrode-io veröffentlicht, 
+was es erlaubt React Universal Anwendungen für eine große Zahl an Nutzer zu entwickeln. 
+Walmart hat Electrode-io Erweiterungen veröffentlicht, 
+die mittels Caching und überspringen des serverseitigen Vorrendern von Teilen der Webseite, 
+die für den Anwender nicht Sichtbar sind, 
+die renderToString() Methode von React beschleunigt. 
+Abbildung XX zeigt auf der linken Seite, 
+wie durch das serverseitige Vorrendern, 
+die Webseite schneller lädt. Beim clientseitigen Rendern hingegen, 
+muss der Benutzer 1 Sekunde warten bis die Seite geladen ist. 
+Bei schlechtem Internet, vergrößert sich diese Ladezeit schnell.
+
+Airbnb ist für eine bessere Ladezeit ihrer Webseite 
+von dem serverseitigen Framework Ruby on Rails zu Universal Rendering mit React und Node.js gewechselt. 
+
+
 \newpage
 % -------------------------------------------------------------------------------------------------
 
-\section{Fazit und Ausblick}
+\section{Fazit}
 \label{sec:Fazit}
+
+\section{Wann ist Universal Rendering sinnvoll}
+\label{sec:Wann ist Universal Rendering sinnvoll}
+Das Verwenden von Universal Rendering bringt viele Vorteile und 
+löst das Performance und SEO Problem von Single Page Anwendungen. 
+Universal Anwendungen bringen Kosten durch Server Performance und sind aufwendig zu skalieren. 
+Aus diesen Gründen ist das Verwenden von Universal Rendering nicht immer sinnvoll und notwendig.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=10cm]{images/JavaScriptGoogleShips}
+  \caption{HTMl Dokument einer React Seite}
+\end{figure}
+
+
+Für Web Anwendungen bei denen sich der Benutzer anmelden muss, 
+um eine für den Nutzer privaten Teil der Webseite aufzurufen, 
+reicht eine Single Page Anwendung aus. 
+Beispielsweise Googles Gmail Webanwendung ist eine SPA, 
+da eine Anmeldung notwendig ist um die Emails abzurufen. 
+Suchmaschinen Crawler haben keinen Zugriff auf die Email-Anwendung und 
+können diese nicht indexieren. 
+Da die Anmeldeseite statisch ist, 
+kann hier prerendering verwendet werden um diese für die Crawler indexierbar zu machen. 
+Universal rendering wäre hier nicht vorteilhaft.
 
 \begin{figure}
   \centering
@@ -808,11 +907,60 @@ Die Universal Rendering Seite kann jetzt über einen spezifizierten Port aufgeru
   \caption{HTMl Dokument einer React Seite}
 \end{figure}
 
-\begin{figure}
-  \centering
-  \includegraphics[width=10cm]{images/JavaScriptGoogleShips}
-  \caption{HTMl Dokument einer React Seite}
-\end{figure}
+Anwendungen die performant sein sollen, 
+aber nicht dynamisch, können mit serverseitigen Rendern und 
+Ajax erreicht werden. Beispielsweise die Nachrichten Plattform Hacker News, 
+die primär Links zu Artikeln anzeigt, 
+verwendet serverseitiges rendern ohne Client Side Framework. 
+Dies führt zu einer guten Indexierbarkeit von Suchmaschinen und 
+einer schnellen Time to interaction. Beim Aufrufen der Webseite, 
+bekommt der Benutzer schnell die Links angezeigt und 
+kann mit ihnen interagieren. 
+\\
+\\
+Das Einsetzen einer Universal rendering Anwendung ist bei folgenden Punkten sinnvoll: 
+\begin{itemize}
+  \item Die Webseite soll durch Suchmaschinen indexiert werden können. 
+    Neue Nutzer sollen die Seite durch Suchmaschinen finden.
+  \item Die Inhalte der Webseite sollen auf sozialen Medien geteilt werden können. 
+  \item Die Ladezeit der Webseite ist für den Benutzer wichtig, 
+  da es sonst zu einer hohen Absprungrate kommt.
+  \item Es gibt ausreichend Ressourcen zum Mieten von Servern, 
+  insbesondere wenn die Webseite von vielen Nutzern genutzt wird. 
+\end{itemize}
+
+\section{Ausblick}
+\label{sec:Ausblick}
+Der Google Crawler kann aktuell schon Single Page Anwendungen indexieren, 
+wie Google 2018 bei der Google io zeigt. 
+Der Crawler verfügt über eine eigene rendering Engine, 
+ähnlich wie ein Headless Browser, 
+um eine reine Javascript Anwendungen zu indexieren. 
+Allerdings wird das Indexieren dieser Anwendungen aufgeschoben, 
+da das Rendern von Webseiten auch für den Google Crawler 
+ein ressourcen intensiver Prozess ist. 
+Daher kann sich das Rendern um einige Tage verzögern, 
+bis Google über freie Ressourcen verfügt. 
+Auch die Suchmaschine Bing kann SPAs indexieren.
+
+Das Verwenden einer Single Page Anwendung 
+kann sich aktuell immer noch auf die Indexierbarkeit einer Anwendung auswirken. 
+Gleichzeitig besitzen noch nicht alle Suchmaschinen neue Crawler 
+zum indexieren reiner clientseitigen Anwendung. 
+Google berichtet, dass immer mehr JavaScript für Webseiten benötigt wird, 
+wie die Abbildung xx zeigt. 
+Aus diesen Gründen verbessern sie den Google Crawler weiterhin für eine bessere Indexierung von SPA Anwendungen. 
+In der Zukunft kann die Indexierbarkeit von CSR und SSR Anwendungen gleich sein. 
+Bei der Google io 2019 sagt Google, 
+dass sie sicherstellen wollen, 
+dass Entwickler sich beim Erstellen von Webanwendungen auf den Inhalt konzentrieren sollen und nicht auf SEO. 
+Dennoch empfiehlt Google Prerendering oder Universal Rendering, 
+anstatt reine CSR, für eine gute Indexierbarkeit.
+\\
+\\
+Da aber noch nicht alle Suchmaschinen und 
+Social Media Crawler dies unterstützen ist Universal Rendering ein 
+guter Workaround für eine bessere SEO und schnelle Ladezeiten für Anwender.
 
 
 
