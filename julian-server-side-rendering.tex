@@ -495,6 +495,7 @@ bekommt der Benutzer keine veralteten Inhalte angezeigt.
   \includegraphics[width=10cm]{images/caching}
   \caption{Welche Daten können gecacht werden \cite{garett_2015}}
 \end{figure}
+\\
 Durch das Caching verbessert sich die Server Performance, 
 da nicht bei jedem erneuten Aufruf ein HTML Dokument mit Hilfe des virtuellen DOMs und 
 der jeweiligen “rendernToString()” Methode generieren werden muss. 
@@ -561,14 +562,12 @@ Dies beschleunigt das Hydrieren der wichtigen Elemente für den Anwender und sor
 dass die Website schneller interaktiv wird und sich die TTI verbessert. 
 Des weiteren ist es auch möglich, 
 statische Komponenten wie den Artikel Inhalt, nicht zu hydrieren.
-
 \begin{figure}[h]
   \centering
   \includegraphics[width=5cm]{images/LazyHydration}
   \caption{Lazy Hydratation mit vue-lazy-hydration}
   \label{Lazy Hydratation mit vue-lazy-hydration}
 \end{figure}
-
 Vue.js bietet mit der Bibliothek vue-lazy-hydration 
 eine einfache Möglichkeit um Lazy Hydration zu implementieren. 
 Die Abbildung \ref{Lazy Hydratation mit vue-lazy-hydration} zeigt wie der Artikel erst Hydriert werden kann, 
@@ -586,6 +585,7 @@ ersten Aufrufen der Webseite nötig.
   \caption{Universal Rendering Architektur}
   \label{Universal Rendering Architektur}
 \end{figure}
+\\
 Folgende Schritte werden beim Aufrufen einer Universal Anwendung aufsgeführt:
 \begin{enumerate}
   \setlength\itemsep{1em}
@@ -691,7 +691,12 @@ Rein serverseitige Anwendungen benötigen zwar auch ein serverseitigen Prozess,
 lassen sich aber besser skalieren, 
 da die Anfragen meist asynchron bearbeitet werden können. 
 Dies führt zu einer besseren TTFB als bei Universal Rendering.
-\\
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=10cm]{images/TimeToInteractive}
+  \caption{Verspätete TTI \cite{osmani_2019}}
+  \label{Verspätete TTI}
+\end{figure}
 \\
 Ein weiteres Problem stellt die Time to Interactive (TTI) dar. 
 Bei Universal Rendering erlaubt das Vorrendern auf dem Server, 
@@ -699,7 +704,7 @@ eine Website schnell darzustellen.
 Zu diesem Zeitpunkt kann der Anwender noch nicht mit der Seite interagieren. 
 Wenn der Benutzer sehr schnell ist und auf eine Schaltfläche klickt, 
 wird die Aktion erst ausgeführt wenn die clientseitige Hydration abgeschlossen ist. 
-Je nach Art der Webseite kann dies zu Problemen führen.
+Je nach Art der Webseite kann dies zu Problemen führen wie Abbildung \ref{Verspätete TTI} zeigt
 
 
 \subsection{Alternativen}
@@ -722,14 +727,12 @@ Durch die statisch generierten Seiten,
 ist die Anwendung einfacher zu Crawlen wie SPAs. 
 Prerendering wird von Frameworks wie Preact, 
 Gatsby und Vuepress verwendet.
-
 \begin{figure}[h]
   \centering
   \includegraphics[width=9cm]{images/WebsiteSceleton}
-  \caption{HTMl Dokument einer React Seite}
-  \cite{breux_2018}
+  \caption{Skelett einer Webanwendung \cite{breux_2018}}
 \end{figure}
-
+\\
 Wenn man nur die SEO einer Single Page Applications verbessern will, 
 ist es auch möglich, 
 wichtige Teile der Anwendung, 
@@ -794,7 +797,12 @@ kann die Seite einfach über die URL /about aufgerufen werden.
 Next.js stellt dabei sicher, 
 dass die Seite automatisch auf dem Server vorgerendert wird und 
 anschließend als SPA auf dem Client verfügbar ist. 
-\\
+\begin{figure}
+  \centering
+  \includegraphics[width=10cm]{images/CodeSplitting}
+  \caption{CodeSplitting in Next.js \cite{arunoda}}
+  \label{CodeSplitting in Next.js}
+\end{figure}
 \\
 Neben Universal Rendering, bietet Next.js automatisches “Code Splitting”. 
 Bei klassischen Single Page Anwendungen wird der gesamte JavaScript Code 
@@ -811,15 +819,19 @@ den der Benutzer im Augenblick aufruft.
 Dies verringert die Zeit bis zum FCP und ist vorteilhaft für Mobilnutzer, 
 da die Ladezeiten minimiert werden.
 Next.js teilt den Code automatisch anhand von Seitengrenzen auf. 
+Nur beim in Aufrufen der in Abbildung \ref{CodeSplitting in Next.js} gezeigten Seite,
+wird der Code von dem cowsay-browser geladen.
 Ruft der Benutzer beispielsweise die Route /about auf, 
 lädt der Client nur den JavaScript Code für diese Seite der Anwendung herunter.
 \begin{figure}
   \centering
-  \includegraphics[width=10cm]{images/CodeSplitting}
-  \caption{HTMl Dokument einer React Seite}
+  \includegraphics[width=10cm]{images/prefetchnext}
+  \caption{Prefetching in Next.js}
+  \label{Prefetching in Next.js}
 \end{figure}
+\\
 Next.js bietet zudem eine Möglichkeit zum Prefetching, 
-also dem Vorausladen von Seiten. 
+dem Vorausladen von Seiten. 
 Das Vorausladen von Seiten kann in Kombination mit serverseitigen rendern verwendet werden, 
 um ohne Ladezeit zwischen verschieden Seiten der Anwendung zu navigieren. 
 Next.js verwendet ein Link HTML Tag zum Navigieren zwischen Seiten, 
@@ -828,16 +840,12 @@ Ist das Attribute gesetzt,
 lädt JavaScript die verlinkte Route im Hintergrund herunter. 
 Klickt der Benutzer den Link, 
 wird sofort navigiert und die Seite dargestellt. 
-Abbildung XX zeigt eine Anwendung mit 3 Routen für /, /about und /contact. 
+Abbildung \ref{Prefetching in Next.js} zeigt eine Anwendung mit 3 Routen für /, /about und /contact. 
 Da bei jedem Link Tag das prefetch Attribut vorhanden ist, 
 wird Next.js die Seiten im Hintergrund herunterladen. 
 So wird dem Benutzer sofort nach klicken des Links die About Seite angezeigt.
-\begin{figure}
-  \centering
-  \includegraphics[width=7cm]{images/prefetchnext}
-  \caption{HTMl Dokument einer React Seite}
-\end{figure}
-
+\\
+\\
 Zudem unterstützt Next.js das dynamische Importieren von JavaScript Modulen sowie Komponenten. 
 Dies erlaubt das Importieren von Komponenten zur Laufzeit. 
 Mit dem dynamischen Laden von Komponenten ist es möglich, 
@@ -854,10 +862,10 @@ damit die Webseite auch auf älteren Browsern läuft und
 verkleinert (minify) die Skripte für eine bessere Performance. 
 Anschließend kann der Node.js Server Prozess über npm run start gestartet werden. 
 Die Universal Rendering Seite kann jetzt über einen spezifizierten Port aufgerufen werden.
-
 \subsection{Vue.js und Nuxt.js}
 \label{subsec:Vue.js und Nuxt.js}
-Vue ist ein weiteres clientseitiges JavaScript Framework zum Erstellen von Single Page Anwendungen. 
+Vue ist ein weiteres clientseitiges JavaScript Framework 
+zum Erstellen von Single Page Anwendungen. 
 Es wurde 2014 von Evan You veröffentlicht und 
 wird seitdem von der Community weiterentwickelt. 
 In den letzten Monaten ist die Popularität von Vue gestiegen und 
@@ -931,9 +939,9 @@ wodurch sie besser von Benutzern gefunden werden können.
 \begin{figure}
   \centering
   \includegraphics[width=12cm]{images/ssrvscsrwallmart}
-  \caption{HTMl Dokument einer React Seite}
+  \caption{Verbesserung des First Contentful Paint der Walmart Webseite}
+  \label{Verbesserung des First Contentful Paint der Walmart Webseite}
 \end{figure}
-
 Wegen der besseren Performance für den Nutzer und bessere SEO, 
 hat sich Walmart 2016 entschieden, 
 Universal rendering einzusetzen. 
@@ -943,7 +951,7 @@ Walmart hat Electrode-io Erweiterungen veröffentlicht,
 die mittels Caching und überspringen des serverseitigen Vorrendern von Teilen der Webseite, 
 die für den Anwender nicht Sichtbar sind, 
 die renderToString() Methode von React beschleunigt. 
-Abbildung XX zeigt auf der linken Seite, 
+Abbildung \ref{Verbesserung des First Contentful Paint der Walmart Webseite} zeigt auf der linken Seite, 
 wie durch das serverseitige Vorrendern, 
 die Webseite schneller lädt. Beim clientseitigen Rendern hingegen, 
 muss der Benutzer 1 Sekunde warten bis die Seite geladen ist. 
@@ -965,13 +973,8 @@ Das Verwenden von Universal Rendering bringt viele Vorteile und
 löst das Performance und SEO Problem von Single Page Anwendungen. 
 Universal Anwendungen bringen Kosten durch Server Performance und sind aufwendig zu skalieren. 
 Aus diesen Gründen ist das Verwenden von Universal Rendering nicht immer sinnvoll und notwendig.
-
-\begin{figure}
-  \centering
-  \includegraphics[width=10cm]{images/JavaScriptGoogleShips}
-  \caption{HTMl Dokument einer React Seite}
-\end{figure}
-
+\\
+\\
 Für Web Anwendungen bei denen sich der Benutzer anmelden muss, 
 um eine für den Nutzer privaten Teil der Webseite aufzurufen, 
 reicht eine Single Page Anwendung aus. 
@@ -982,13 +985,8 @@ können diese nicht indexieren.
 Da die Anmeldeseite statisch ist, 
 kann hier prerendering verwendet werden um diese für die Crawler indexierbar zu machen. 
 Universal rendering wäre hier nicht vorteilhaft.
-
-\begin{figure}
-  \centering
-  \includegraphics[width=10cm]{images/HackerNews}
-  \caption{HTMl Dokument einer React Seite}
-\end{figure}
-
+\\
+\\
 Anwendungen die performant sein sollen, 
 aber nicht dynamisch, können mit serverseitigen Rendern und 
 Ajax erreicht werden. Beispielsweise die Nachrichten Plattform Hacker News, 
@@ -998,8 +996,12 @@ Dies führt zu einer guten Indexierbarkeit von Suchmaschinen und
 einer schnellen Time to interaction. Beim Aufrufen der Webseite, 
 bekommt der Benutzer schnell die Links angezeigt und 
 kann mit ihnen interagieren. 
-\\
-\\
+\begin{figure}
+  \centering
+  \includegraphics[width=10cm]{images/HackerNews}
+  \caption{Die Webseite HackerNews}
+  \label{Die WEbseite HackerNews}
+\end{figure}
 Das Einsetzen einer Universal rendering Anwendung ist bei folgenden Punkten sinnvoll: 
 \begin{itemize}
   \setlength\itemsep{1em}
@@ -1024,15 +1026,20 @@ da das Rendern von Webseiten auch für den Google Crawler
 ein ressourcen intensiver Prozess ist. 
 Daher kann sich das Rendern um einige Tage verzögern, 
 bis Google über freie Ressourcen verfügt. 
-Auch die Suchmaschine Bing kann SPAs indexieren.
-\\
+Auch die Suchmaschine Bing kann SPAs indexieren\cite{GoogleSearchAndJS} \cite{SearchFriendly}.
+\begin{figure}
+  \centering
+  \includegraphics[width=10cm]{images/JavaScriptGoogleShips}
+  \caption{JavaScript pro Webseite \cite{SearchFriendly}}
+  \label{JavaScript pro Website}
+\end{figure}
 \\
 Das Verwenden einer Single Page Anwendung 
 kann sich aktuell immer noch auf die Indexierbarkeit einer Anwendung auswirken. 
 Gleichzeitig besitzen noch nicht alle Suchmaschinen neue Crawler 
 zum indexieren reiner clientseitigen Anwendung. 
 Google berichtet, dass immer mehr JavaScript für Webseiten benötigt wird, 
-wie die Abbildung xx zeigt. 
+wie die Abbildung \ref{JavaScript pro Website} zeigt. 
 Aus diesen Gründen verbessern sie den Google Crawler weiterhin für eine bessere Indexierung von SPA Anwendungen. 
 In der Zukunft kann die Indexierbarkeit von CSR und SSR Anwendungen gleich sein. 
 Bei der Google io 2019 sagt Google, 
