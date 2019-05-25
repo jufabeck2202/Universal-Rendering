@@ -400,26 +400,150 @@ Dafür gibt es zwei Ansätze bei aktuellen clientseitigen Frameworks:
   wird auch hier ein virtuelles DOM verwendet, 
   um die Änderungen performanter durchzuführen. 
   Anschließend wird nur das sich ändernde Element im HTML- DOM aktualisiert.
-
 \end{itemize}
+Neben dem Verwenden auf der clientseite, 
+ermöglichen virtuelle Document Object Models, 
+erst das serverseitige rendern moderner Single Page Applications. 
+Dadurch, dass das virtuelle DOM in Form von JavaScript dargestellt wird und 
+somit unabhängig von dem Browser ist, 
+ist es möglich, dies auf der Serverseite zu verwenden. 
+Beim ersten Aufrufen einer Universal Rendering Webseite, 
+wird das virtuelles DOM verwendet um ein HTML Dokument zu generieren. 
+Der Client kann sofort nach dem Erhalten des Dokumentes mit dem rendern beginnen und 
+es somit zeitnah für den Benutzer darstellen.
 
+Vue.js und React besitzen für das Serverseitigen rendern eine renderToString() Funktion. 
+Diese Funktion erzeugt aus der aktuellen Instanz des Frameworks, 
+auf der Serverseite, 
+mit hilfe eines virtuellen DOM ein HTML String. 
+Dieser wird dem Client beim ersten Aufrufen der Website zurückgegeben.
+
+Das rendern auf der Serverseite kostet allerdings Zeit und Performance. 
+Das Rendern einer 1 Megabyte Anwendung mit hilfe der renderToString() 
+Funktion benötigt bis zu 1 Sekunde. 
+Zusätzlich läuft die render Funktion in Node.js, 
+was bedeutet, sie ist single-threaded und skaliert nicht gut. 
+Dadurch erhöht sich die TTFB, je größer die Website wird. 
+Ein Ansatz dies zu verhindern ist die Verwendung von renderToStream() anstatt renderToString. 
+Dabei erzeugt der Server einen asynchronen HTML Stream an Daten, 
+dies ermöglicht dem Browser die Seite zu rendern, 
+bevor die Antwort abgeschlossen ist. 
+Dadurch bleibt die TTFB gleich und 
+wird nicht erhöht sich nicht durch größere Webseiten. 
+Eine weitere Möglichkeit zur Verbesserung der TTFB und Entlastung des Servers, 
+ist das Verwenden von Caching.
+
+\subsection{Caching}
+\label{subsec:Caching}
+Mithilfe von Caching auf der Serverseite ist es möglich, 
+die Zeit bis zum TTFB weiter zu verkürzen. 
+Dies kann dann eingesetzt werden, 
+wenn der Inhalt der aufgerufenen Seite dynamisch und nicht benutzerabhängig ist. 
+Ist dies der Fall, kann durch Microcaching, 
+eine Caching Technik die Inhalte nur für sehr kurze Zeiträume zwischenspeichert, 
+die Ladezeiten und Auslastung des Servers vermindert werden. 
+Da der Inhalt nur für einige Sekunden gecacht wird, 
+bekommt der Benutzer keine veralteten Inhalte angezeigt. 
 \begin{figure}[h]
   \centering
   \includegraphics[width=5cm]{images/caching}
   \caption{HTMl Dokument einer React Seite}
 \end{figure}
+Durch das Caching verbessert sich die Server Performance, 
+da nicht bei jedem erneuten Aufruf ein HTML Dokument mit Hilfe des virtuellen DOMs und 
+der jeweiligen “rendernToString()” Methode generieren werden muss. 
+
+Bei modernen Web-Frameworks wie, Vue, 
+lässt sich sogar direkt in dem JavaScript Code definieren, 
+wie lang die jeweiligen Komponenten eines HTML Dokuments gecacht werden. 
+\\
+\\
+Nachdem der Server mit dem statischen HTML Dokument dem Client geantwortet hat, 
+beginnt die Client Side Hydration.
+
 
 \subsection{Clientseitige Hydration}
 \label{subsec:Clientseitige Hydration}
+Client Side Hydration oder auch Rehydration genannt, 
+bezieht sich auf den clientseitigen Prozess, 
+in dem die Clientseite, 
+den vom Server gesendeten statischen HTML-Code übernimmt und 
+in ein dynamisches DOM verwandelt, 
+das auf die clientseitige Datenänderungen und Benutzerinteraktionen reagiert. 
+
+Beim ersten Laden einer Universal Website antwortet der Server mit einem, 
+durch den virtuellen DOM, gerenderten HTML Dokument. 
+Mit Hilfe dieses HTML erreicht man einen schnellen First Contentful Paint, 
+allerdings ist die Seite ist noch nicht interaktiv. 
+Da schon gerendertes HTML vorhanden ist, 
+wird dies nicht weggeworfen. Stattdessen wird das HTML "hydrated", 
+dadurch wird das statische HTML interaktiv. 
+
+Dabei ist die Hydration auf der Client Side nur möglich, 
+wenn das HTML des Servers identisch mit dem generierten HTML des jeweiligen 
+Client-side Frameworks ist. 
+Unterscheiden sich die jeweiligen Markup Dokumente, 
+kommt es zu einem Fehler und der Hydration Vorgang schlägt fehl. 
+Sind die Dokumente gleich findet die Hydration statt.
+
+Hydration verbessert die Zeit bis zum FCP, 
+aber es entsteht ein negativer Einfluss auf die Zeit bis die Website interaktiv ist. 
+So wirkt die Seite nach dem FCP für den Anwender interaktiv, 
+obwohl sie zu diesem Zeitpunkt noch statisch ist. 
+Diese Zeit zwischen dem FCP und der TTI wird Uncanny Valley genannt. 
+Je nach Anwendungsart ist das Uncanny Valley unterschiedlich problematisch. 
+Bei einem Blog stellt dies kein Problem dar, 
+da der User schon nach dem FCP die Artikel lesen kann. 
+Schwieriger ist es bei einer Chat-App, 
+hier kann der User erst antworten, 
+nachdem die Hydration abgeschlossen ist.
+
+Lazy Hydration ist eine Möglichkeit die Zeit bis eine Webseite Interaktiv ist, 
+zu verbessern. Dabei wird die Hydratation des vorgerenderten HTML Dokuments des Servers verzögert und 
+inkrementell hydriert. Mit Lazy Hydration ist möglich, 
+bei Website zu implementieren, 
+dass die Kommentare am Ende der Website erst hydriert werden, 
+wenn sie für den Nutzer sichtbar sind. 
+Dies beschleunigt das Hydrieren der wichtigen Elemente für den Anwender und sorgt damit dafür, 
+dass die Website schneller interaktiv wird und sich die TTI verbessert. 
+Des weiteren ist es auch möglich, 
+statische Komponenten wie den Artikel Inhalt, nicht zu hydrieren.
+
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=5cm]{images/LazyHydration}
   \caption{HTMl Dokument einer React Seite}
 \end{figure}
+Vue.js bietet mit der Bibliothek vue-lazy-hydration 
+eine einfache Möglichkeit um Lazy Hydration zu implementieren. 
+Die Abbildung XX zeigt wie der Artikel erst Hydriert werden kann, 
+wenn er für den Nutzer sichtbar wird.
 
 \subsection{Rendering Ablauf}
 \label{subsec:Rendering Ablauf}
+\begin{enumerate}
+  \item Beim ersten Aufrufen einer Seite, sendet der Client eine Anfrage an den Server.
+  \item Auf der Serverseite läuft ein Node.js Prozess, 
+  dieser generiert mit Hilfe eines virtuellen DOMs 
+  ein statisches HTML Dokument als Antwort auf die Anfrage. 
+  Das HTML ist auf den Anwender angepasst und enthält bereits anwenderspezifische Informationen.
+  \item Der Server sendet das vorgerenderte Dokument an den Client.
+  \item Der Client erhält das Dokument und rendert es. 
+  Zu diesem Zeitpunkt sieht der Anwender die Webseite, 
+  kann aber noch nicht mit ihr interagieren.
+  \item Nachdem Erhalt des HTML beginnt die Client Side Hydration. 
+  Der Client lädt dafür zunächst die benötigten Skriptdateien runter.
+  \item Besitzt der Client die benötigten JavaScript Dateien, 
+  wird die clientseitige Anwendung initialisiert. 
+  Anschließend findet die Hydration statt und 
+  das statische vorgerenderte HTML wird 
+  durch ein dynamisches HTML von der clientseitigen Anwendung ersetzt und 
+  anschließend zum DOM gerendert. 
+  Ab diesem Zeitpunkt ist die Website für den Anwender interaktiv.
+  \item Ab diesem Zeitpunkt werden alle Interaktionen und 
+  Navigationen zwischen den Seiten durch Ajax Anfragen durchgeführt. 
+\end{enumerate}
 
 \begin{figure}[h]
   \centering
@@ -431,6 +555,39 @@ Dafür gibt es zwei Ansätze bei aktuellen clientseitigen Frameworks:
 \subsection{Vorteile}
 \label{subsec:Vorteile}
 
+\begin{itemize}
+  \item Da beim ersten Aufrufen einer Universal Anwendung der Server mit einem HTML Dokument antwortet, 
+  ist dieser Rendering Ansatz genauso SEO freundlich wie normale klassische serverseitige Webseiten. 
+  Der Suchmaschinencrawler erhält ein indexierbares Dokument und muss nicht wie bei klassischen SPAs, 
+  JavaScript Bundles laden und starten. 
+  Des weiteren benötigt man bei Universal Rendering keine Hash am ende von URLs, 
+  wodurch der Crawler zwischen verschieden Links auf der Seite unterscheiden kann. 
+  Dies verbessert nicht nur die Indexierbarkeit, 
+  sondern auch die Social Media Performance der Website. 
+  Schreibt man einen Twitter Post mit einem Link zu einer Universal Anwendung, 
+  so kann der Twitter Bot die Webseite einfach crawlen und eine Vorschau zu der Webseite generieren, 
+  dass unter dem Tweet eingeblendet wird. 
+  Bei einer SPAs ist dies nicht der Fall.
+  \item Durch das Server Side Rendern der ersten Anfrage, 
+  erhält der User eine schnelle Antwort auf die Anfrage und 
+  muss nicht wie bei Single Page Anwendungen warten bis der Client alle Skripts geladen und 
+  installiert hat. Die Zeit bis die Anwendung interaktiv ist, 
+  ist größer als bei reinen serverseitigen Anwendungen, 
+  aber mit Hilfe von lazy Hydration besser als bei SPAs. 
+  \item Nach der Hydratation bei Universal Anwendungen, 
+  läuft auf der Client Seite eine normale Single Page Applications. 
+  Dies erlaubt wie bei SPAs eine Anwendung anzubieten, 
+  die benutzerfreundlich und interaktiv ist.
+  \item Moderne Universal Rendering Frameworks sind komfortabel zu entwickeln. 
+  So ist es möglich Programmcode einmalig zu schreiben und 
+  die Frameworks rendern diesen server- und clientseitig. 
+  So können komfortable SPA Frameworks zum entwickeln der Clientseite verwendet werden. 
+  Dies macht die Anwendung einfacher zu Warten. 
+  Das Verwenden von JavaScript auf dem Client und 
+  Server vereinfacht zusätzlich das Entwickeln der Anwendung.
+  
+\end{itemize}
+
 \begin{figure}[h]
   \centering
   \includegraphics[width=9cm]{images/nuxt-body-first}
@@ -439,37 +596,193 @@ Dafür gibt es zwei Ansätze bei aktuellen clientseitigen Frameworks:
 
 \subsection{Nachteile}
 \label{subsec:Nachteile}
+Das Verwenden von Universal Rendering löst viele Probleme, 
+bringt aber auch neue Herausforderungen und 
+Nachteile gegenüber klassischen Verfahren.
+
+Der größte Nachteil von Universal Rendering ist, 
+dass im Gegensatz zu clientseitigen Anwendungen, 
+ein render Prozess auf dem Server laufen muss. 
+Die Dynamik des serverseitigen Vorrenderns 
+kann zu erheblichen Rechenaufwand auf dem Server führen, 
+was wiederum Kosten verursacht. 
+Dadurch, dass auf dem Server eine Node.js Instanz laufen muss, 
+skaliert der Prozess nicht gut, 
+da die Render- Funktionen synchron und singlethread sind. 
+Dies erschwert die Skalierbarkeit und erhöht gleichzeitig noch die TTFB, 
+da auf eine Antwort des Servers gewartet werden muss, 
+da während dem Rendern des HTML Dokuments der Event Loop blockiert ist. 
+Der Rechenaufwand kann zwar verkleinert werden, 
+durch Caching und Memory Management, 
+dies führt aber schnell dazu, 
+dass die Anwendung komplex und unübersichtlich wird. 
+Single Page Anwendungen haben dieses Problem nicht, 
+da es ausreicht die Dateien statisch zu hosten, 
+ohne einen serverseitigen Prozess. 
+So skaliert eine SPA deutlich besser, 
+da die Webseite vollständig auf der Clientseite gerendert wird.  
+Bei einer erhöhten Benutzerzahl, 
+ist die skalierung damit deutlich einfacher, 
+da nur ein werden. 
+Rein serverseitige Anwendungen benötigen zwar auch ein serverseitigen Prozess, 
+lassen sich aber besser skalieren, 
+da die Anfragen meist asynchron bearbeitet werden können. 
+Dies führt zu einer besseren TTFB als bei Universal Rendering.
+
+Ein weiteres Problem stellt die Time to Interactive (TTI) dar. 
+Bei Universal Rendering erlaubt das Vorrendern auf dem Server, 
+eine Website schnell darzustellen. 
+Zu diesem Zeitpunkt kann der Anwender noch nicht mit der Seite interagieren. 
+Wenn der Benutzer sehr schnell ist und auf eine Schaltfläche klickt, 
+wird die Aktion erst ausgeführt wenn die clientseitige Hydration abgeschlossen ist. 
+Je nach Art der Webseite kann dies zu Problemen führen.
+
 
 \subsection{Alternativen}
 \label{subsec:Alternativen}
+Eine Alternative zum Universal Rendering ist das clientseitige rendern mit Prerendering. 
+Prerendering benötigt keinen vollständigen Server auf der Serverseite. 
+Beim Prerendering werden vordefinierte Seiten der Anwendung im Vorraus als HTML kompiliert und 
+statisch auf einem statischen Server gespeichert. 
+
+Dies erlaubt es, beim Aufrufen mit Hilfe von Hydration, 
+eine schnellere TTFB im Vergleich zu Universal rendering. 
+Desweiteren ist auch keine Node.js Prozess auf dem Server nötig. 
+Da die erste Antwort aber statisch und nicht dynamisch ist, 
+erhält man beim ersten Aufrufen noch keine benutzerspezifischen Informationen. 
+Wenn die Anwendung benutzerspezifische Daten enthält, 
+wird in der Regel ein Skelett der Anwendung eingeblendet, 
+bis die Clientside initialisiert ist und die Daten zur verfügung stehen. 
+Durch die statisch generierten Seiten, 
+ist die Anwendung einfacher zu Crawlen wie SPAs. 
+Prerendering wird von Frameworks wie Preact, 
+Gatsby und Vuepress verwendet.
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=9cm]{images/WebsiteSceleton}
   \caption{HTMl Dokument einer React Seite}
+  \cite{breux_2018}
 \end{figure}
+
+Wenn man nur die SEO einer Single Page Applications verbessern will, 
+ist es auch möglich, 
+wichtige Teile der Anwendung, 
+wie die Kontakt oder About Seite, 
+als statisches HTML ähnlich wie bei Prerendering zu speichern. 
+So können diese Seiten einfach von einem Crawler indexiert werden.
+
+Eine weitere Alternative ist das Verwenden von SPA in Kombination mit Headless Browsern zum vorrendern einer Webseite. 
+Ein Headless Browser ist ein Browser, 
+der meist auf den gängigen Rendering-Engines wie Chrome basiert, 
+um Web-Inhalte darzustellen. Dieser ist aber “Kopflos”, was bedeutet, 
+er besitzt keine UI Elemente. 
+Ursprünglich wurden Headless Browser zum automatischen Testen von Webseiten entwickelt, 
+sie können aber auch verwendet werden um Single Page Anwendungen auf dem Server zu rendern. 
+
+Ruft ein Anwender oder ein Suchmaschinen Crawler eine Website auf, 
+wird ein Headless Browser auf einem Server zum vorrendern verwendet. 
+Dies verbessert wie bei Universal Rendering die Zeit bis zum FCP. Gleichzeitig verbessert sich die SEO, da der Crawler ein indexierbares HTML Dokument erhält. 
+Problem dieses Vorgehens ist die Skalierbarkeit, 
+da für jeden Nutzer ein neuer Headless Browser gestartet werden muss. 
+Des weiteren muss die Webseite zweimal entwickelt werden, 
+einmal für die SPA auf dem Client und ein zweites Mal für den Headless Browser. 
+Dies ist komplex und fehleranfällig. Das hat zur Folge, 
+dass in der Praxis diese Variante des Renderns nur sehr selten verwendet wird. 
+Allerdings gibt es Dienstleister, wie Brome Bone, 
+die verwendet werden können um dies zu vereinfachen, 
+was aber zu weiteren Kosten führen kann.
 
 \newpage
 % -------------------------------------------------------------------------------------------------
 
 \section{Frameworks}
 \label{sec:Evaluation}
+Universal Rendering Frameworks vereinfachen das Verwenden von clientseitigen Frameworks wie Vue, 
+React und Angular zum Entwickeln für Universal Rendering Anwendungen. 
 
 \subsection{React und Next.js}
 \label{subsec:React und Next.js}
+React ist ein clientseitiges JavaScript Framework zum Erstellen von Benutzeroberflächen. 
+Es wurde 2013 von Facebook veröffentlicht und ist aktuell eines der populärsten User Interface Frameworks. 
+Da React ein virtuellen DOM besitzt, 
+kann es serverseitig gerendert werden und eignet sich für Universal Anwendungen.
 
+Da das Entwickeln von Universal Anwendungen schnell komplex wird und 
+viele Aspekte beim Entwickeln beachtet werden müssen, 
+hat ZEIT das Open Source Framework Next.js, 
+basierend auf React veröffentlicht. 
+Dies vereinfacht das Erstellen von Universal Anwendungen mit React.
+
+Next.js automatisiert das serverseitige Rendern, 
+so kann die Anwendung wie eine normale react SPA entwickelt werden und 
+Next.js automatisiert das Vorrendern der Website. 
+Gleichzeitig hilft Next.js mit der Wartbarkeit der Webseite, 
+indem es einen Dateibasierten Ansatz zum Verwalten der Seiten, 
+Komponenten und Routen verwendet. 
+Wird beispielsweise eine about.js Datei unter dem Pfad /pages/about.js erstellt, 
+kann die Seite einfach über die URL /about aufgerufen werden. 
+Next.js stellt dabei sicher, 
+dass die Seite automatisch auf dem Server vorgerendert wird und 
+anschließend als SPA auf dem Client verfügbar ist. 
+
+Neben Universal Rendering, bietet Next.js automatisches “Code Splitting”. 
+Bei klassischen Single Page Anwendungen wird der gesamte JavaScript Code 
+zu Beginn der Anwendung geladen. 
+Dies erhöht die Zeit bis zum FCP, da der User warten muss, 
+bis die gesamte Seite vom Client geladen ist. 
+Besonders bei mobilen Internet ist dies langsam. 
+Dieser Ansatz kann zu unnötigen Ladezeiten führen, 
+da möglicherweise auch JavaScript von Teilen der Anwendung geladen wird, 
+die der Benutzer gar nicht aufrufen will. 
+Code Splitting kann eingesetzt werden um dies zu verhindern. 
+Dabei wird der Code aufgeteilt und nur der Teil geladen, 
+den der Benutzer im Augenblick aufruft. 
+Dies verringert die Zeit bis zum FCP und ist vorteilhaft für Mobilnutzer, 
+da die Ladezeiten minimiert werden.
+Next.js teilt den Code automatisch anhand von Seitengrenzen auf. 
+Ruft der Benutzer beispielsweise die Route /about auf, 
+lädt der Client nur den JavaScript Code für diese Seite der Anwendung herunter.
 \begin{figure}
   \centering
   \includegraphics[width=10cm]{images/CodeSplitting}
   \caption{HTMl Dokument einer React Seite}
 \end{figure}
-
+Next.js bietet zudem eine Möglichkeit zum Prefetching, 
+also dem Vorausladen von Seiten. 
+Das Vorausladen von Seiten kann in Kombination mit serverseitigen rendern verwendet werden, 
+um ohne Ladezeit zwischen verschieden Seiten der Anwendung zu navigieren. 
+Next.js verwendet ein Link HTML Tag zum Navigieren zwischen Seiten, 
+dieses bietet die Funktion eines “prefetch” Attributes. 
+Ist das Attribute gesetzt, 
+lädt JavaScript die verlinkte Route im Hintergrund herunter. 
+Klickt der Benutzer den Link, 
+wird sofort navigiert und die Seite dargestellt. 
+Abbildung XX zeigt eine Anwendung mit 3 Routen für /, /about und /contact. 
+Da bei jedem Link Tag das prefetch Attribut vorhanden ist, 
+wird Next.js die Seiten im Hintergrund herunterladen. 
+So wird dem Benutzer sofort nach klicken des Links die About Seite angezeigt.
 \begin{figure}
   \centering
   \includegraphics[width=7cm]{images/prefetchnext}
   \caption{HTMl Dokument einer React Seite}
 \end{figure}
 
+Zudem unterstützt Next.js das dynamische Importieren von JavaScript Modulen sowie Komponenten. 
+Dies erlaubt das Importieren von Komponenten zur Laufzeit. 
+Mit dem dynamischen Laden von Komponenten ist es möglich, 
+nur die für den Nutzer sinnvollen Teile der Seite zu laden. 
+Beispielsweise kann je nachdem, 
+ob die Webseite von einem Mobilgerät oder eines Desktops aufgerufen wird, 
+unterschiedliche Komponenten dynamisch geladen werden. 
+
+Für das Veröffentlichen einer Next.js Webseite, 
+muss zuerst die Anwendung über npm run build gebaut werden. 
+Dies fügt die nötigen Polyfills ein, 
+damit die Webseite auch auf älteren Browsern läuft und 
+verkleinert (minify) die Skripte für eine bessere Performance. 
+Anschließend kann der Node.js Server Prozess über npm run start gestartet werden. 
+Die Universal Rendering Seite kann jetzt über einen spezifizierten Port aufgerufen werden.
 
 \subsection{Vue.js und Nuxt.js}
 \label{subsec:Vue.js und Nuxt.js}
