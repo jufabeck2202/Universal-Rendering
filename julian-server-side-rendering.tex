@@ -52,14 +52,71 @@
 \section{Einleitung}
 \label{sec:Einleitung}
 
-Seit dem Beginn des Webs funktioniert das Surfen wie folgt: Ein Webbrowser fordert eine bestimmte Seite an, ein Server im Internet bearbeitet die Anfrage und generiert ein HTML (Hypertext Markup Language) Dokument als Antwort. Dies bezeichnet man als serverseitiges rendern. In den Anfängen des Webs stellte dies kein Problem dar, da die Browser nicht leistungsstark waren und die Webseiten aus meist statischen Inhalt bestanden. Später mit HTML5 wurden Webseiten dynamischer und interaktiver für den Nutzer, was dazu führte, dass immer mehr Apps, sogenannte Single Page Applikationen, vollständig im Browser auf einer Seite liefen. Um dies zu ermöglichen wird clientseitiges rendern verwendet. Single Page Applications oder kurz SPAs, bieten Vorteile für den Anwender: Sie reagieren schnell auf Benutzerinteraktionen und können zwischen Seiten navigieren, ohne sie komplett neu zu laden. Gleichzeitig sind SPAs komfortabel zu entwickeln, dank moderner Frameworks. Beide Varianten, serverseitiges und clientseitiges rendern, haben Vor- und Nachteile. Universal Rendering kombiniert die beiden Ansätze und erfüllt alle Anforderungen an eine moderne Webanwendung.
+Seit dem Beginn des Webs funktioniert das Surfen wie folgt: 
+Ein Webbrowser fordert eine bestimmte Seite an, ein Server im 
+Internet bearbeitet die Anfrage und generiert ein HTML 
+(Hypertext Markup Language) Dokument als Antwort. 
+Dies bezeichnet man als serverseitiges rendern. 
+In den Anfängen des Webs stellte dies kein Problem dar, 
+da die Browser nicht leistungsstark waren und die Webseiten 
+aus meist statischen Inhalt bestanden. 
+Später mit HTML5 wurden Webseiten dynamischer und 
+interaktiver für den Nutzer, was dazu führte, dass immer mehr Apps, 
+sogenannte Single Page Applikationen, 
+vollständig im Browser auf einer Seite liefen. 
+Um dies zu ermöglichen wird clientseitiges rendern verwendet. 
+Single Page Applications oder kurz SPAs, bieten Vorteile für den Anwender: 
+Sie reagieren schnell auf Benutzerinteraktionen und können zwischen Seiten navigieren, 
+ohne sie komplett neu zu laden. Gleichzeitig sind SPAs komfortabel zu entwickeln, 
+dank moderner Frameworks. Beide Varianten, serverseitiges und clientseitiges rendern, 
+haben Vor- und Nachteile. Universal Rendering kombiniert die beiden Ansätze und 
+erfüllt alle Anforderungen an eine moderne Webanwendung.
 
 
 \subsection{Anforderungen an eine Webanwendung}
 \label{subsec:Anforderungen an eine Webanwendung}
 
+Eine moderne Webanwendungen sollten folgende Anforderungen erfüllen:
+\begin{itemize}
+  \item Damit die Seite von Suchmaschinen gefunden werden kann, sollte sie von Suchmaschinen Crawler indexierbar sein. 
+  Dies wird Suchmaschinenoptimierung oder auch SEO 
+  (engl. search engine optimization) genannt. 
+  \item Eine moderne Webseite muss beim Aufrufen für den Anwender schnell laden. Der Anwender sollte nicht lange warten 
+  müssen bis er die Anwendung sieht und mit ihr interagieren kann
+  \item Eine moderne Webanwendung muss dynamisch und interaktiv sein. Die Anwendung sollte auf Benutzereingaben reagieren, 
+  ohne lange Ladezeiten oder neuladen der Seite.
+  Die Anwendung sollte einfach zu entwickeln sein und gleichzeitig muss sichergestellt werden, 
+  dass der Programmcode einfach zu pflegen ist. 
+  Code duplikation sollte minimiert werden.
+\end{itemize}
+
 \subsection{Terminologie}
 \label{subsec:Terminologie}
+Beim Rendern von Webtechnologien unterscheidet man zwischen dem Rendern auf dem Server und dem Client:
+
+\begin{itemize}
+  \item SSR Server-Side Rendering: Rendern auf der Server Seite bezieht sich auf das generieren eines HTML Dokumentes 
+  aus einer Single Page Application. 
+  \item CSR Client-Side Rendering: Rendern auf der Client Seite bezieht sich auf das generieren und parsen eines 
+  HTML Dokumentes zu einem DOM und darstellen für den Anwender. 
+\end{itemize}
+Der Begriff Universal Rendering beschreibt eine Kombination aus server- und clientseitiges rendern. 
+Dieser Ansatz wird oft auch als Isomorphic oder Server-Side Rendering bezeichnet.
+\\
+\\
+Folgende Begriffe beschreiben unterschiedliche Zeiten beim Laden einer Webseite:
+\begin{itemize}
+  \item TTFB: Time to First Byte - Zeit bis zum ersten Byte -  Die Zeit zwischen dem Klicken auf ein Link und Erhalten der Daten vom Server.
+  \item FP: First Paint - der Zeitpunkt an dem der erste Inhalt für den User sichtbar wird.
+  \item FCP: First Contentful Paint oder auch First Meaningful Paint - Der Zeitpunkt, an dem der Benutzer den wichtigsten Inhalt einer Website als fertig geladen sieht. Die Zeit bis zum FCP wird auch als kritischer Rendering-Pfad (engl.:Critical Rendering Path) bezeichnet.
+  \item TTI: Time To Interactive - Die Zeit bis die Seite interaktiv wird und der Anwender mit ihr interagieren kann.
+\end{itemize}
+Da die Anwendung vollständig auf der Client Seite läuft, ist es schwierig für Suchmaschinen Crawler die seite zu Indexieren was zu einer schlechten SEO führt.
+Des weiteren, dadurch dass die Webseite nicht auf dem Server, sonder vom Client gerendert wird, muss der User warten bis die seite vollständig gerendert wird.
+Server Side rendering ist eine Mischung beider Ansätze. Es kombiniert die SEO und Performance von Server seitigen Applikationen und die Interaktivität und flexibilität von Client Side Anwendungen.
+\\
+\\
+Diese Arbeit beginnt mit den der Funktionsweise von server - und clientseitigen Rendern. Es werden die Vor - und Nachteile der jeweiligen Vorgehensweisen untersucht und beschrieben warum eine Notwendigkeit für Universal Rendering besteht. Nach einer Einführung in den Universal Rendering Vorgang, werden die verwendeten Technologien und deren Funktionsweise für das Rendern beschrieben. Anschließend werden die positiven und negativen Aspekte des Universal Rendering beschrieben und Alternativen genannt. Danach beschreibt die Arbeit unterschiedliche Frameworks zum implementieren der Rendering Technologie und zeigt wie Unternehmen Universal Rendering verwenden. Das Fazit erarbeitet wann welche Rendering Technologie verwendet werden soll und zeigt den aktuellen Stand von Suchmaschinen Crawler.
 
 % -------------------------------------------------------------------------------------------------
 
@@ -142,6 +199,12 @@ test\cite{chen_chen_2016}
 \subsection{Clientseitige Hydration}
 \label{subsec:Clientseitige Hydration}
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=5cm]{images/LazyHydration}
+  \caption{HTMl Dokument einer React Seite}
+\end{figure}
+
 \subsection{Rendering Ablauf}
 \label{subsec:Rendering Ablauf}
 
@@ -166,6 +229,12 @@ test\cite{chen_chen_2016}
 
 \subsection{Alternativen}
 \label{subsec:Alternativen}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=9cm]{images/WebsiteSceleton}
+  \caption{HTMl Dokument einer React Seite}
+\end{figure}
 
 \newpage
 % -------------------------------------------------------------------------------------------------
