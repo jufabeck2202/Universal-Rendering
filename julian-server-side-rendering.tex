@@ -75,7 +75,7 @@ erfüllt alle Anforderungen an eine moderne Webanwendung.
 \subsection{Anforderungen an eine Webanwendung}
 \label{subsec:Anforderungen an eine Webanwendung}
 
-Eine moderne Webanwendungen sollten folgende Anforderungen erfüllen:
+Eine moderne Webanwendungen sollten folgende Anforderungen erfüllen\cite{IsomorphicApps}:
 \begin{itemize}
   \setlength\itemsep{1em}
   \item Damit die Seite von Suchmaschinen gefunden werden kann, sollte sie von Suchmaschinen Crawler indexierbar sein. 
@@ -114,7 +114,8 @@ Folgende Begriffe beschreiben unterschiedliche Zeiten beim Laden einer Webseite:
 Da die Anwendung vollständig auf der Client Seite läuft, ist es schwierig für Suchmaschinen Crawler die seite zu Indexieren was zu einer schlechten SEO führt.
 Des weiteren, dadurch dass die Webseite nicht auf dem Server, sonder vom Client gerendert wird, muss der User warten bis die seite vollständig gerendert wird.
 Server Side rendering ist eine Mischung beider Ansätze. Es kombiniert die SEO und Performance von Server seitigen Applikationen und die Interaktivität und flexibilität von Client Side Anwendungen.
-\bigskip
+\\
+\\
 Diese Arbeit beginnt mit den der Funktionsweise von server - und clientseitigen Rendern. 
 Es werden die Vor - und Nachteile der jeweiligen Vorgehensweisen untersucht 
 und beschrieben warum eine Notwendigkeit für Universal Rendering besteht. Nach einer Einführung in den Universal Rendering Vorgang, werden die verwendeten Technologien und deren Funktionsweise für das Rendern beschrieben. Anschließend werden die positiven und negativen Aspekte des Universal Rendering beschrieben und Alternativen genannt. Danach beschreibt die Arbeit unterschiedliche Frameworks zum implementieren der Rendering Technologie und zeigt wie Unternehmen Universal Rendering verwenden. Das Fazit erarbeitet wann welche Rendering Technologie verwendet werden soll und zeigt den aktuellen Stand von Suchmaschinen Crawler.
@@ -127,7 +128,11 @@ Bei der klassische Web-Architektur oder auch “Thin Client - Fat Server”
 Architektur, befindet sich die Anwendungslogik auf der Serverseite. 
 Diese Logik wird durch Programmiersprachen wie PHP, Python oder Java 
 implementiert. Die Clientseite ist nur zuständig für die “Document Object Model” 
-Manipulation und dem Darstellen der Webseite im Browser.
+Manipulation und dem Darstellen der Webseite im Browser. Abbildung \ref{Thin Client - Fat Server Architektur einer SSR Anwendung} 
+zeuigt den Aufbau einer SSR Anwendung. Die Datenbankschicht ist zuständig für das Komunizieren mit einer exteren
+Datenbank, die Anwendungsschicht verarbeitet die Anfrange und beinhaltet die eigentliche Logik und die Präsentationsschicht generiert,
+das sogennante rendern, das HTML Dokument.
+
 \begin{figure}[h]
   \centering
   \includegraphics[width=12cm]{images/server}
@@ -139,7 +144,8 @@ Wird eine Website aufgerufen, wird zunächst über das HTTP Protokoll
 eine GET Anfrage an den Server gesendet. Dieser bearbeitet die Anfrage 
 und antwortet mit einem HTML Dokument. Auf der Clientseite wird das HTML 
 von dem Browser interpretiert und dargestellt.
-\bigskip
+\\
+\\
 Der kritische Rendering-Pfad ist bei klassischen Webanwendungen sehr schnell, 
 da das HTML vom Server gerendert wird. Dies bietet eine gute Nutzererfahrung, 
 da der Client ausschließlich die Webseite als DOM darzustellen muss. 
@@ -150,7 +156,8 @@ da der User sofort nach dem Laden mit der Website interagieren kann,
 anders als bei Clientseitigen Anwendungen. 
 Da die Webseite direkt mit HTML antwortet, ist es einfach für Suchmaschinen Crawler 
 die Webseite zu indexieren. 
-\bigskip
+\\
+\\
 Der entscheidende Nachteil von klassischen serverseitigen Anwendungen 
 ist die Benutzer Interaktivität. Für jede Navigation zwischen verschiedenen 
 Seiten und für jedes abgeschickte HTML-Form, 
@@ -164,13 +171,12 @@ was zu einer besseren Nutzererfahrung führte.
 
 \subsection{Serverseitiges Rendering mit Ajax}
 \label{subsec:Serverseitiges Rendering mit Ajax}
+
 Mit der Einführung von XMLHttpRequest von Microsoft im Jahre 2000 wurde die Basis von Ajax geschaffen. 
 Ajax oder auch “asynchronous JavaScript and XML” erlaubt eine asynchrone Datenübertragung mit dem Server.
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=12cm]{images/serverajax}
-  \caption{HTMl Dokument einer React Seite}
-\end{figure}
+\\
+\\
+
 Ajax löst das Problem der synchronen Kommunikation klassischer Webanwendungen. 
 Ajax ermöglicht es asynchron, 
 den Inhalt einer Webseite zu aktualisieren und Daten zum Server senden und empfangen, 
@@ -178,13 +184,20 @@ ohne neuladen der Webseite. Damit dies möglich ist,
 kommuniziert die Clientseite, mittels Ajax, mit dem Server. 
 So ist es möglich, interaktive und dynamische Webanwendungen zu bauen, 
 die sofort reagieren ohne ein Neuladen der Seite.
-\bigskip
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=12cm]{images/serverajax}
+  \caption{SSR Architektur mit Ajax}
+  \label{SSR Architektur mit Ajax}
+\end{figure}
 Die Verwendung von Ajax führt aber auch zu einer komplizierten Web-Architektur. 
 Zuvor war die Anwendungslogik auf der Serverseite. 
 Dies erlaubte eine klare Trennung zwischen Client und Server. 
 Das Aktualisieren von Teilbereichen der Webseite führt 
 zu einer Verbesserung der Nutzererfahrung. 
-Es erfordert aber auch doppelte Templates und erhöht den Programmanteil sowie Logik auf der Clientseite. 
+Es erfordert aber auch doppelte Templates und erhöht den Programmanteil sowie Logik auf der Clientseite.
+
 Um Ajax zu benutzen ist mehr JavaScript auf der Clientseite erforderlich. 
 Besitzt eine Anwendung Logik auf der Client- und Serverseite, 
 wird es schwerer diese zu entwickeln. 
@@ -202,9 +215,11 @@ Vue und Angular immer beliebter. SPAs sind komfortabel zu Entwickeln
 und lösen das Problem der Wartbarkeit, 
 indem sie vollständig auf der Clientseite, 
 im Browser, ausgeführt werden.
-\bigskip
+\\
+\\
 Single Page Application verwenden die ”Fat- Client, Thin Server Architektur”. 
-Dabei befindet sich die Anwendungs- und Interface Logik vollständig auf der Clientseite. 
+Dabei befindet sich die Anwendungs- und Interface Logik vollständig auf der Clientseite, wie Abbildung 
+\ref{Fat Client - Thin Server Architektur einer CSR Anwendung} zeigt.
 Die Serverseite ist nur zuständig für das Bereitstellen von Anwendungsdaten 
 und benötigten Scripts. 
 Beim Aufrufen einer Single Page Application antwortet der Server 
@@ -218,7 +233,8 @@ Ist der Client initialisiert, ruft er mittels Ajax weitere Anwendungsdaten ab.
 \begin{figure}[h]
   \centering
   \includegraphics[width=12cm]{images/client}
-  \caption{HTMl Dokument einer React Seite}
+  \caption{Fat Client - Thin Server Architektur einer CSR Anwendung}
+  \label{Fat Client - Thin Server Architektur einer CSR Anwendung}
 \end{figure}
 
 Dieses Vorgehen hat Vorteile beim Wechseln zwischen einzelnen Seiten. 
@@ -232,7 +248,8 @@ ist eine klare Trennung zwischen Server und Client möglich.
 Dies vereinfacht das Entwickeln von SPAs und
 macht in Kombination mit modernen Frameworks 
 Single Page Applications bei Entwicklern sehr beliebt.
-\bigskip
+\\
+\\
 Beim Aufrufen von serverseitig gerenderten Webseiten antwortet
 der Server direkt mit einem HTML Dokument, 
 dass den angeforderten Inhalt enthält. 
@@ -244,21 +261,26 @@ und muss warten. Oft werden Ladebalken verwendet,
 die der Benutzer sieht, bis die Seite geladen ist. 
 Aus diesem Grund ist die Time to Interactive und 
 der kritische Rendering-Pfad sehr hoch, im Gegensatz zu SSR.
-\bigskip
+\\
+\\
 Ein weiteres Problem mit SPAs ist die Search Engine Optimization (SEO). 
 Da beim Aufrufen einer CSR Anwendung der Server nur mit einem Template 
 antwortet, dass nur JavaScript und kein Inhalt enthält, 
 kann es nicht von Suchmaschinen indexiert werden. 
 Beim Indexieren einer React Anwendung beispielsweise, 
-enthält der Crawler die in Abbildung XX enthaltene Antwort des Servers. 
-
+enthält der Crawler die in Abbildung \ref{HTML Antwort einer SPA React Anwendung} enthaltene Antwort des Servers. 
+Die Antwort enthält im Body des HTML Dokuments nur ein ROOT Element und Links zu
+den benötigten JavaScript Datein. Nach dem Laden und Initalisieren des clientseitigen Frameworks,
+started das Framework im ROOT Element der Anwendung
 \begin{figure}[h]
   \centering
-  \includegraphics[width=9cm]{images/react-code-small}
-  \caption{HTMl Dokument einer React Seite}
+  \includegraphics[width=12cm]{images/react-code-small}
+  \caption{HTML Antwort einer SPA React Anwendung}
+  \label{HTML Antwort einer SPA React Anwendung}
 \end{figure}
 
-Stattdessen ist notwendig, dass die Suchmaschine die Anwendung rendert, 
+Damit ein Suchmaschienprovider eine Single Page Anwendung indexieren kann,
+muss er die Seite rendern,
 was nicht jeder Suchmaschinen Provider macht. 
 Eine weitere Herausforderung bei der SEO sind die URLs der Anwendung. 
 SPAs verwenden Hash Marks zur Navigation zwischen Seiten. 
@@ -273,7 +295,8 @@ die zum Rendern einer Ansicht / Seite erforderlich sind,
 anstatt ein neues Dokument für jede Seite abzurufen und zu rendern. 
 Für ein Web Crawler unterscheiden sich Domains mit Hash Mark allerdings 
 nicht, was die Indizierung von Seiten erschwert.
-\bigskip
+\\
+\\
 Ein weiteres Problem stellt die Social Media Optimization (SMO) für SPAs dar. 
 Da die Anwendung clientseitig läuft, 
 können Social Media Crawler die Webseite nicht einfach crawlen, 
@@ -282,7 +305,8 @@ dass bei dem Verwenden von Links auf sozialen Plattformen
 keine Vorschau des Inhaltes generiert werden kann. 
 Da die Inhalte nicht sehr einfach teilbar sind, 
 kann dies die  Nutzerzahlen einer Anwendung beeinflussen.
-\bigskip
+\\
+\\
 Single Page Applications sind sehr dynamisch und interaktiv. 
 Sie lassen sich mit Hilfe von Frameworks wie React komfortabel entwickeln
 und benötigen keinen dynamischen Server. Es reicht aus, 
@@ -303,32 +327,46 @@ verwendet Universal Rendering die positiven Aspekte beider Technologien.
 \begin{equation*}
   \textbf{SSR + CSR = Universal App}
 \end{equation*}
-\\
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=12cm]{images/react}
+  \caption{Universal Anwendung}
+  \label{Universal Anwendung}
+\end{figure}
+
 Beim Aufrufen einer Universal rendering Anwendung sendet der Browser
 zuerst eine Anfrage an den Server. 
-Dieser rendert die Anfrage und antwortet mit einem HTML Dokument. 
+Dieser generiert aus einem Single Page Framework ein HTML Dokumemt,
+in dem das Framework auf dem Server gerendert wird. 
+Das HTML Dokument wird zusammen mit den benötigten Scripts eines clientseitiges Frameworks
+an den Browser gesendet.
 Ab diesem Zeitpunkt kann die Seite für den Anwender dargestellt werden, 
 er erhält den First Contentful Paint (FCP). 
 Anschließend lädt der Browser im Hintergrund eine Single Page Application herunter
 und startet sie. 
 Jetzt funktioniert die Anwendung wie eine Single Page Anwendung und 
-verwendet Client Side Rendering. 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=12cm]{images/react}
-  \caption{HTMl Dokument einer React Seite}
-\end{figure}
-
-Um dies zu ermöglichen kombiniert Universal Rendering mehrere Technologien. 
-Es wird Isomorphic JavaScript verwendet um JavaScript auf dem Server und Client auszuführen, 
-ein virtueller DOM für das Rendern auf dem Server und 
-Code Hydration für den Wechsel zwischen server zu clientseitigen Rendern.
+verwendet Client Side Rendering. Abbildung \ref{Universal Anwendung} zeigt wie bei dem 
+ersten Aufrufen der Anwendung eine React Anwendung auf dem Server verwendet wird,
+zum generieren, rendern, eines HTML Dokuments. 
+Nach dem darstellen des HTML Dokuments auf der Clientseite, 
+wird die gleiche React Anwendung auf dem Client initalisiert.
+\\
+\\
+Da die erste Antwort vom Server gerendert wird, enhtält sie Daten und ist
+indexierbar. Dadurch ist die Suchmaschinenoptimierung von Universal Anwendungen einfacher
+als rein clientseite Anwendungen, die beim ersten Aufrufen nur mit einem Template
+HTML Dokument Antworten.
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=10cm]{images/universalseo}
-  \caption{HTMl Dokument einer React Seite}
+  \caption{Suchmaschinencrawler erhalten ein gerendertes HTML Dokument}
+  \label{Suchmaschinencrawler erhalten ein gerendertes HTML Dokument}
 \end{figure}
+Um dies zu ermöglichen kombiniert Universal Rendering mehrere Technologien. 
+Es wird Isomorphic JavaScript verwendet um JavaScript auf dem Server und Client auszuführen, 
+ein virtueller DOM für das Rendern auf dem Server und 
+Code Hydration für den Wechsel zwischen server zu clientseitigen Rendern.
 
 \subsection{Isomorphic JavaScript}
 \label{subsec:Isomorphic JavaScript}
@@ -347,7 +385,8 @@ was die Wartbarkeit und Testbarkeit verbessert.
 Das Virtuelle Document Object Model
 oder auch virtuelles DOM (eng. virtual DOM) ermöglicht 
 as Rendern moderner Web Anwendungen auf dem Server.
-\bigskip
+\\
+\\
 Bei modernen JavaScript Frameworks wie React, 
 VueJs und Angular wird das HTML vollständig vom Framework kontrolliert. 
 So kann das Framework einfach das HTML manipulieren und stellt sicher, 
@@ -358,7 +397,8 @@ Moderne JavaScript Frameworks garantieren,
 dass das Interface immer mit dem Zustand synchron ist und aktualisiert das Interface, 
 sobald sich der Zustand ändert. 
 Dabei wird ein virtuelles Document Object Model (virtual DOM) verwendet.
-\bigskip
+\\
+\\
 Das Document Object Model ist eine Datenstruktur in Form eines Baumes, 
 die erzeugt wird, wenn der Browser das HTML Dokument rendert. 
 Ein aktualisieren des Inhaltes einer Website ist nur möglich, 
@@ -369,7 +409,8 @@ Bei modernen Webanwendungen muss das DOM häufig aktualisiert werden.
 Da die DOM Bäume vieler Anwendungen sehr groß sind, 
 verwenden viele Frameworks ein virtuelles DOM um die 
 Aktualisierung zu beschleunigen. 
-\bigskip
+\\
+\\
 Das virtuelle DOM ist eine Abstraktion des HTML-DOM und 
 von den Browser spezifischen Implementierungsdetails getrennt. 
 Das virtuelle DOM ist eine lokale Kopie des HTML- DOMs, 
@@ -377,7 +418,8 @@ dargestellt in Form einer JavaScript Struktur.
 Dies erlaubt es Frameworks, 
 Berechnungen abstrakt durchzuführen und Änderungen im DOM des Browsers 
 zu überspringen die oft langsam und browserspezifisch sind.
-\bigskip
+\\
+\\
 Wenn sich der Zustand einer Anwendung ändert, 
 sollten möglichst wenig Elemente im HTML-Dom manipuliert werden. 
 Dafür gibt es zwei Ansätze bei aktuellen clientseitigen Frameworks:
@@ -413,13 +455,15 @@ Beim ersten Aufrufen einer Universal Rendering Webseite,
 wird das virtuelles DOM verwendet um ein HTML Dokument zu generieren. 
 Der Client kann sofort nach dem Erhalten des Dokumentes mit dem rendern beginnen und 
 es somit zeitnah für den Benutzer darstellen.
-\bigskip
+\\
+\\
 Vue.js und React besitzen für das Serverseitigen rendern eine renderToString() Funktion. 
 Diese Funktion erzeugt aus der aktuellen Instanz des Frameworks, 
 auf der Serverseite, 
 mit hilfe eines virtuellen DOM ein HTML String. 
 Dieser wird dem Client beim ersten Aufrufen der Website zurückgegeben.
-\bigskip
+\\
+\\
 Das rendern auf der Serverseite kostet allerdings Zeit und Performance. 
 Das Rendern einer 1 Megabyte Anwendung mit hilfe der renderToString() 
 Funktion benötigt bis zu 1 Sekunde. 
@@ -448,17 +492,19 @@ Da der Inhalt nur für einige Sekunden gecacht wird,
 bekommt der Benutzer keine veralteten Inhalte angezeigt. 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=5cm]{images/caching}
-  \caption{HTMl Dokument einer React Seite}
+  \includegraphics[width=10cm]{images/caching}
+  \caption{Welche Daten können gecacht werden \cite{garett_2015}}
 \end{figure}
 Durch das Caching verbessert sich die Server Performance, 
 da nicht bei jedem erneuten Aufruf ein HTML Dokument mit Hilfe des virtuellen DOMs und 
 der jeweiligen “rendernToString()” Methode generieren werden muss. 
-\bigskip
+\\
+\\
 Bei modernen Web-Frameworks wie, Vue, 
 lässt sich sogar direkt in dem JavaScript Code definieren, 
 wie lang die jeweiligen Komponenten eines HTML Dokuments gecacht werden. 
-\bigskip
+\\
+\\
 Nachdem der Server mit dem statischen HTML Dokument dem Client geantwortet hat, 
 beginnt die Client Side Hydration.
 
@@ -471,7 +517,8 @@ in dem die Clientseite,
 den vom Server gesendeten statischen HTML-Code übernimmt und 
 in ein dynamisches DOM verwandelt, 
 das auf die clientseitige Datenänderungen und Benutzerinteraktionen reagiert. 
-\bigskip
+\\
+\\
 Beim ersten Laden einer Universal Website antwortet der Server mit einem, 
 durch den virtuellen DOM, gerenderten HTML Dokument. 
 Mit Hilfe dieses HTML erreicht man einen schnellen First Contentful Paint, 
@@ -479,14 +526,16 @@ allerdings ist die Seite ist noch nicht interaktiv.
 Da schon gerendertes HTML vorhanden ist, 
 wird dies nicht weggeworfen. Stattdessen wird das HTML "hydrated", 
 dadurch wird das statische HTML interaktiv. 
-\bigskip
+\\
+\\
 Dabei ist die Hydration auf der Client Side nur möglich, 
 wenn das HTML des Servers identisch mit dem generierten HTML des jeweiligen 
 Client-side Frameworks ist. 
 Unterscheiden sich die jeweiligen Markup Dokumente, 
 kommt es zu einem Fehler und der Hydration Vorgang schlägt fehl. 
 Sind die Dokumente gleich findet die Hydration statt.
-\bigskip
+\\
+\\
 Hydration verbessert die Zeit bis zum FCP, 
 aber es entsteht ein negativer Einfluss auf die Zeit bis die Website interaktiv ist. 
 So wirkt die Seite nach dem FCP für den Anwender interaktiv, 
@@ -498,7 +547,10 @@ da der User schon nach dem FCP die Artikel lesen kann.
 Schwieriger ist es bei einer Chat-App, 
 hier kann der User erst antworten, 
 nachdem die Hydration abgeschlossen ist.
-\bigskip
+\\
+\\
+\textbf{Lazy Hydration}
+\\
 Lazy Hydration ist eine Möglichkeit die Zeit bis eine Webseite Interaktiv ist, 
 zu verbessern. Dabei wird die Hydratation des vorgerenderten HTML Dokuments des Servers verzögert und 
 inkrementell hydriert. Mit Lazy Hydration ist möglich, 
@@ -510,19 +562,31 @@ dass die Website schneller interaktiv wird und sich die TTI verbessert.
 Des weiteren ist es auch möglich, 
 statische Komponenten wie den Artikel Inhalt, nicht zu hydrieren.
 
-
 \begin{figure}[h]
   \centering
   \includegraphics[width=5cm]{images/LazyHydration}
-  \caption{HTMl Dokument einer React Seite}
+  \caption{Lazy Hydratation mit vue-lazy-hydration}
+  \label{Lazy Hydratation mit vue-lazy-hydration}
 \end{figure}
+
 Vue.js bietet mit der Bibliothek vue-lazy-hydration 
 eine einfache Möglichkeit um Lazy Hydration zu implementieren. 
-Die Abbildung XX zeigt wie der Artikel erst Hydriert werden kann, 
+Die Abbildung \ref{Lazy Hydratation mit vue-lazy-hydration} zeigt wie der Artikel erst Hydriert werden kann, 
 wenn er für den Nutzer sichtbar wird.
+
 
 \subsection{Rendering Ablauf}
 \label{subsec:Rendering Ablauf}
+Die Architektur einer Universal Anwendung, ähnelt der einer clientseitigen Anwendung. Eine
+zweite Präsentationsschicht \ref{Universal Rendering Architektur} ist auf der Serverseite zum generieren des HTMLS Dokumentes beim
+ersten Aufrufen der Webseite nötig.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=12cm]{images/universal}
+  \caption{Universal Rendering Architektur}
+  \label{Universal Rendering Architektur}
+\end{figure}
+Folgende Schritte werden beim Aufrufen einer Universal Anwendung aufsgeführt:
 \begin{enumerate}
   \setlength\itemsep{1em}
   \item Beim ersten Aufrufen einer Seite, sendet der Client eine Anfrage an den Server.
@@ -544,26 +608,27 @@ wenn er für den Nutzer sichtbar wird.
   anschließend zum DOM gerendert. 
   Ab diesem Zeitpunkt ist die Website für den Anwender interaktiv.
   \item Ab diesem Zeitpunkt werden alle Interaktionen und 
-  Navigationen zwischen den Seiten durch Ajax Anfragen durchgeführt. 
+  Navigationen zwischen den Seiten durch Ajax Anfragen durchgeführt.
 \end{enumerate}
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=12cm]{images/universal}
-  \caption{HTMl Dokument einer React Seite}
-\end{figure}
 
 \newpage
 \subsection{Vorteile}
 \label{subsec:Vorteile}
-
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=12cm]{images/nuxt-body-first}
+  \caption{HTMl Dokument einer Universal Anwendung}
+  \label{HTMl Dokument einer Universal Anwendung}
+\end{figure}
 \begin{itemize}
   \setlength\itemsep{1em}
-
   \item Da beim ersten Aufrufen einer Universal Anwendung der Server mit einem HTML Dokument antwortet, 
   ist dieser Rendering Ansatz genauso SEO freundlich wie normale klassische serverseitige Webseiten. 
   Der Suchmaschinencrawler erhält ein indexierbares Dokument und muss nicht wie bei klassischen SPAs, 
   JavaScript Bundles laden und starten. 
+  Abbildung \ref{HTMl Dokument einer Universal Anwendung}
+  zeig den Body einer HTML Universal Anwendung, der im gegensatz zu Single Page Anwendungen Nutzer Daten
+  enthält, da die erste Anfrage vom Server gerendert wurde.
   Des weiteren benötigt man bei Universal Rendering keine Hash am ende von URLs, 
   wodurch der Crawler zwischen verschieden Links auf der Seite unterscheiden kann. 
   Dies verbessert nicht nur die Indexierbarkeit, 
@@ -589,21 +654,15 @@ wenn er für den Nutzer sichtbar wird.
   Dies macht die Anwendung einfacher zu Warten. 
   Das Verwenden von JavaScript auf dem Client und 
   Server vereinfacht zusätzlich das Entwickeln der Anwendung.
-  
 \end{itemize}
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=12cm]{images/nuxt-body-first}
-  \caption{HTMl Dokument einer React Seite}
-\end{figure}
 
 \subsection{Nachteile}
 \label{subsec:Nachteile}
 Das Verwenden von Universal Rendering löst viele Probleme, 
 bringt aber auch neue Herausforderungen und 
 Nachteile gegenüber klassischen Verfahren.
-\bigskip
+\\
+\\
 Der größte Nachteil von Universal Rendering ist, 
 dass im Gegensatz zu clientseitigen Anwendungen, 
 ein render Prozess auf dem Server laufen muss. 
@@ -632,7 +691,8 @@ Rein serverseitige Anwendungen benötigen zwar auch ein serverseitigen Prozess,
 lassen sich aber besser skalieren, 
 da die Anfragen meist asynchron bearbeitet werden können. 
 Dies führt zu einer besseren TTFB als bei Universal Rendering.
-\bigskip
+\\
+\\
 Ein weiteres Problem stellt die Time to Interactive (TTI) dar. 
 Bei Universal Rendering erlaubt das Vorrendern auf dem Server, 
 eine Website schnell darzustellen. 
@@ -648,7 +708,8 @@ Eine Alternative zum Universal Rendering ist das clientseitige rendern mit Prere
 Prerendering benötigt keinen vollständigen Server auf der Serverseite. 
 Beim Prerendering werden vordefinierte Seiten der Anwendung im Vorraus als HTML kompiliert und 
 statisch auf einem statischen Server gespeichert. 
-\bigskip
+\\
+\\
 Dies erlaubt es, beim Aufrufen mit Hilfe von Hydration, 
 eine schnellere TTFB im Vergleich zu Universal rendering. 
 Desweiteren ist auch keine Node.js Prozess auf dem Server nötig. 
@@ -675,7 +736,8 @@ wichtige Teile der Anwendung,
 wie die Kontakt oder About Seite, 
 als statisches HTML ähnlich wie bei Prerendering zu speichern. 
 So können diese Seiten einfach von einem Crawler indexiert werden.
-\bigskip
+\\
+\\
 Eine weitere Alternative ist das Verwenden von SPA in Kombination mit Headless Browsern zum vorrendern einer Webseite. 
 Ein Headless Browser ist ein Browser, 
 der meist auf den gängigen Rendering-Engines wie Chrome basiert, 
@@ -683,7 +745,8 @@ um Web-Inhalte darzustellen. Dieser ist aber “Kopflos”, was bedeutet,
 er besitzt keine UI Elemente. 
 Ursprünglich wurden Headless Browser zum automatischen Testen von Webseiten entwickelt, 
 sie können aber auch verwendet werden um Single Page Anwendungen auf dem Server zu rendern. 
-\bigskip
+\\
+\\
 Ruft ein Anwender oder ein Suchmaschinen Crawler eine Website auf, 
 wird ein Headless Browser auf einem Server zum vorrendern verwendet. 
 Dies verbessert wie bei Universal Rendering die Zeit bis zum FCP. Gleichzeitig verbessert sich die SEO, da der Crawler ein indexierbares HTML Dokument erhält. 
@@ -711,13 +774,15 @@ React ist ein clientseitiges JavaScript Framework zum Erstellen von Benutzerober
 Es wurde 2013 von Facebook veröffentlicht und ist aktuell eines der populärsten User Interface Frameworks. 
 Da React ein virtuellen DOM besitzt, 
 kann es serverseitig gerendert werden und eignet sich für Universal Anwendungen.
-\bigskip
+\\
+\\
 Da das Entwickeln von Universal Anwendungen schnell komplex wird und 
 viele Aspekte beim Entwickeln beachtet werden müssen, 
 hat ZEIT das Open Source Framework Next.js, 
 basierend auf React veröffentlicht. 
 Dies vereinfacht das Erstellen von Universal Anwendungen mit React.
-\bigskip
+\\
+\\
 Next.js automatisiert das serverseitige Rendern, 
 so kann die Anwendung wie eine normale react SPA entwickelt werden und 
 Next.js automatisiert das Vorrendern der Website. 
@@ -729,7 +794,8 @@ kann die Seite einfach über die URL /about aufgerufen werden.
 Next.js stellt dabei sicher, 
 dass die Seite automatisch auf dem Server vorgerendert wird und 
 anschließend als SPA auf dem Client verfügbar ist. 
-\bigskip
+\\
+\\
 Neben Universal Rendering, bietet Next.js automatisches “Code Splitting”. 
 Bei klassischen Single Page Anwendungen wird der gesamte JavaScript Code 
 zu Beginn der Anwendung geladen. 
@@ -779,7 +845,8 @@ nur die für den Nutzer sinnvollen Teile der Seite zu laden.
 Beispielsweise kann je nachdem, 
 ob die Webseite von einem Mobilgerät oder eines Desktops aufgerufen wird, 
 unterschiedliche Komponenten dynamisch geladen werden. 
-\bigskip
+\\
+\\
 Für das Veröffentlichen einer Next.js Webseite, 
 muss zuerst die Anwendung über npm run build gebaut werden. 
 Dies fügt die nötigen Polyfills ein, 
@@ -798,12 +865,14 @@ es ist aktuell das Projekt mit den meisten Sternen auf Github.
 Vue.js besitzt auch ein virtuelles DOM, 
 was Universal rendern ermöglicht. 
 Um dies zu vereinfachen gibt es das Open Source Framework Nuxt.js.
-\bigskip
+\\
+\\
 Nuxt.js ähnelt stark Next.js, 
 der einzige Unterschied ist, 
 dass es Vue.js anstelle von React für das Schreiben des Interface Codes verwendet. 
 Nuxt.js hat den gleichen dateibasierten Ansatz und ermöglicht automatisches Universal rendern von Anwendungen.
-\bigskip
+\\
+\\
 Neben dem Universal Rendering bietet Nuxt.js auch die Möglichkeit statische Dateien aus der Anwendung zu generieren und 
 prerendering zu verwenden.
 Über npm run generate generiert nuxt.js ein dist Ordner mit einer index.html Datei 
@@ -817,7 +886,8 @@ dass 2010 von Google veröffentlicht wurde.
 Mit der Einführung von Angular 2 wurde es durch den virtuellen DOM möglich, 
 das Angular Framework auch als Universal Anwendung zu benutzen, 
 genannt Angular Universal. 
-\bigskip
+\\
+\\
 Ab Angular-Version 4, 
 ist die Universal Funktion nativ im Framework als Modul eingebunden. 
 Über das @angular/platform-server Modul ist es mit wenigen Schritten möglich, 
@@ -827,11 +897,13 @@ welche die Anwendung rendert und das Resultat als String zurückgibt.
 Dies ermöglicht das Vorrendern der Anwendung auf dem Server. 
 Auf der Clientseite findet anschließend die Hydration statt und 
 die Anwendung wird interaktiv. 
-\bigskip
+\\
+\\
 Im Gegensatz zu Nuxt.js und Next.js bietet Angular Universal keine 
 “out of the Box” Universal Rendering Möglichkeit, 
 es müssen die benötigten Module importiert werden um dies zu erreichen. 
-\bigskip
+\\
+\\
 Angular bietet das Hilfswerkzeug Angular CLI (Command Line Interface) an, 
 dass beim Erstellen einer Universal Anwendung hilft. 
 Die Angular CLI ermöglicht das Erstellen und Ausführen einer Angular Anwendung und 
@@ -848,7 +920,8 @@ wird immer wichtiger.
 Laut einem Radware-Bericht war der durchschnittliche Benutzer 1999 bereit, 
 8 Sekunden auf das Laden einer Seite zu warten. 
 Bis 2010 gaben 57\% der Online-Käufer an, dass sie eine Seite nach 3 Sekunden laden verlassen würden. Amazon und Walmart bestätigen, dass für alle 100 Millisekunden Verbesserungen der Ladezeit, der Umsatz der Website bis zu 1% steigt.
-\bigskip
+\\
+\\
 Gerade bei Online Shops ist das Verwenden von Universal rendering sinnvoll, 
 da der Benutzer schnell die Verkaufsartikel angezeigt bekommt und nicht warten muss, 
 bis die ganze Seite initialisiert ist. 
@@ -875,7 +948,8 @@ wie durch das serverseitige Vorrendern,
 die Webseite schneller lädt. Beim clientseitigen Rendern hingegen, 
 muss der Benutzer 1 Sekunde warten bis die Seite geladen ist. 
 Bei schlechtem Internet, vergrößert sich diese Ladezeit schnell.
-\bigskip
+\\
+\\
 Airbnb ist für eine bessere Ladezeit ihrer Webseite 
 von dem serverseitigen Framework Ruby on Rails zu Universal Rendering mit React und Node.js gewechselt. 
 
@@ -924,7 +998,8 @@ Dies führt zu einer guten Indexierbarkeit von Suchmaschinen und
 einer schnellen Time to interaction. Beim Aufrufen der Webseite, 
 bekommt der Benutzer schnell die Links angezeigt und 
 kann mit ihnen interagieren. 
-\bigskip
+\\
+\\
 Das Einsetzen einer Universal rendering Anwendung ist bei folgenden Punkten sinnvoll: 
 \begin{itemize}
   \setlength\itemsep{1em}
@@ -950,7 +1025,8 @@ ein ressourcen intensiver Prozess ist.
 Daher kann sich das Rendern um einige Tage verzögern, 
 bis Google über freie Ressourcen verfügt. 
 Auch die Suchmaschine Bing kann SPAs indexieren.
-\bigskip
+\\
+\\
 Das Verwenden einer Single Page Anwendung 
 kann sich aktuell immer noch auf die Indexierbarkeit einer Anwendung auswirken. 
 Gleichzeitig besitzen noch nicht alle Suchmaschinen neue Crawler 
@@ -964,7 +1040,8 @@ dass sie sicherstellen wollen,
 dass Entwickler sich beim Erstellen von Webanwendungen auf den Inhalt konzentrieren sollen und nicht auf SEO. 
 Dennoch empfiehlt Google Prerendering oder Universal Rendering, 
 anstatt reine CSR, für eine gute Indexierbarkeit.
-\bigskip
+\\
+\\
 Da aber noch nicht alle Suchmaschinen und 
 Social Media Crawler dies unterstützen ist Universal Rendering ein 
 guter Workaround für eine bessere SEO und schnelle Ladezeiten für Anwender.
