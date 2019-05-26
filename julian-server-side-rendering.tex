@@ -14,8 +14,99 @@
 \usepackage{enumerate}
 % fuer die aktuelle Zeit
 \usepackage{listings}
+\usepackage{textcomp}
+\usepackage{color}
 \usepackage{subfigure}
 \usepackage{hyperref}
+
+%
+% ECMAScript 2015 (ES6) definition by Gary Hammock
+%
+
+\lstdefinelanguage[ECMAScript2015]{JavaScript}[]{JavaScript}{
+  morekeywords=[1]{await, async, case, catch, class, const, default, do,
+    enum, export, extends, finally, from, implements, import, instanceof,
+    let, static, super, switch, throw, try},
+  morestring=[b]` % Interpolation strings.
+}
+
+
+%
+% JavaScript version 1.1 by Gary Hammock
+%
+% Reference:
+%   B. Eich and C. Rand Mckinney, "JavaScript Language Specification
+%     (Preliminary Draft)", JavaScript 1.1.  1996-11-18.  [Online]
+%     http://hepunx.rl.ac.uk/~adye/jsspec11/titlepg2.htm
+%
+
+\lstdefinelanguage{JavaScript}{
+  morekeywords=[1]{break, continue, delete, else, for, function, if, in,
+    new, return, this, typeof, var, void, while, with},
+  % Literals, primitive types, and reference types.
+  morekeywords=[2]{false, null, true, boolean, number, undefined,
+    Array, Boolean, Date, Math, Number, String, Object},
+  % Built-ins.
+  morekeywords=[3]{eval, parseInt, parseFloat, escape, unescape},
+  sensitive,
+  morecomment=[s]{/*}{*/},
+  morecomment=[l]//,
+  morecomment=[s]{/**}{*/}, % JavaDoc style comments
+  morestring=[b]',
+  morestring=[b]"
+}[keywords, comments, strings]
+
+
+\lstalias[]{ES6}[ECMAScript2015]{JavaScript}
+
+% Requires package: color.
+\definecolor{mediumgray}{rgb}{0.3, 0.4, 0.4}
+\definecolor{mediumblue}{rgb}{0.0, 0.0, 0.8}
+\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
+\definecolor{darkviolet}{rgb}{0.58, 0.0, 0.83}
+\definecolor{royalblue}{rgb}{0.25, 0.41, 0.88}
+\definecolor{crimson}{rgb}{0.86, 0.8, 0.24}
+
+\lstdefinestyle{JSES6Base}{
+  backgroundcolor=\color{white},
+  basicstyle=\ttfamily,
+  breakatwhitespace=false,
+  breaklines=false,
+  captionpos=b,
+  columns=fullflexible,
+  commentstyle=\color{mediumgray}\upshape,
+  emph={},
+  emphstyle=\color{crimson},
+  extendedchars=true,  % requires inputenc
+  fontadjust=true,
+  frame=single,
+  identifierstyle=\color{black},
+  keepspaces=true,
+  keywordstyle=\color{mediumblue},
+  keywordstyle={[2]\color{darkviolet}},
+  keywordstyle={[3]\color{royalblue}},
+  numbers=left,
+  numbersep=5pt,
+  numberstyle=\tiny\color{black},
+  rulecolor=\color{black},
+  showlines=true,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  stringstyle=\color{forestgreen},
+  tabsize=2,
+  title=\lstname,
+  upquote=true  % requires textcomp
+}
+
+\lstdefinestyle{JavaScript}{
+  language=JavaScript,
+  style=JSES6Base
+}
+\lstdefinestyle{ES6}{
+  language=ES6,
+  style=JSES6Base
+}
 \renewcommand{\labelitemi}{$\bullet$}
 
 \setcounter{tocdepth}{3}
@@ -36,10 +127,16 @@
 \maketitle
 \def\addcontentsline#1#2#3{\oldaddcontentsline{#1}{#2}{#3}}
 
+
 % -------------------------------------------------------------------------------------------------
 
 \begin{abstract}
-  An dieser Stelle sollte später eine Kurzzusammenfassung stehen.
+  Immer mehr Webseiten verwenden clientseitiges Rendern um interaktive Single Page Anwendungen 
+  anzubieten. Single Page Anwendungen erlauben eine bessere Nutzererfahrung,
+  führen aber zu einer schlechteren Indexierbarkeit und Ladezeit der Webseite. Universal Rendering
+  löst diese Probleme, indem sie clientseitiges und serverseitiges Rendern kombinieren. Diese Arbeit 
+  evaluiert die Vor -und Nachteile der jeweiligen Rendermethoden und erläutert die Funktion von Universal 
+  Rendering.
 \end{abstract}
 
 % -------------------------------------------------------------------------------------------------
@@ -68,8 +165,6 @@ ohne sie komplett neu zu laden. Gleichzeitig sind SPAs komfortabel zu entwickeln
 dank moderner Frameworks. Beide Varianten, serverseitiges und clientseitiges rendern, 
 haben Vor- und Nachteile. Universal Rendering kombiniert die beiden Ansätze und 
 erfüllt alle Anforderungen an eine moderne Webanwendung.
-
-
 
 \subsection{Anforderungen an eine Webanwendung}
 \label{subsec:Anforderungen an eine Webanwendung}
@@ -126,7 +221,6 @@ Es werden die Vor - und Nachteile der jeweiligen Vorgehensweisen untersucht
 und beschrieben warum eine Notwendigkeit für Universal Rendering besteht. Nach einer Einführung in den Universal Rendering Vorgang, werden die verwendeten Technologien und deren Funktionsweise für das Rendern beschrieben. Anschließend werden die positiven und negativen Aspekte des Universal Rendering beschrieben und Alternativen genannt. Danach beschreibt die Arbeit unterschiedliche Frameworks zum implementieren der Rendering Technologie und zeigt wie Unternehmen Universal Rendering verwenden. Das Fazit erarbeitet wann welche Rendering Technologie verwendet werden soll und zeigt den aktuellen Stand von Suchmaschinen Crawler.
 \newpage
 % -------------------------------------------------------------------------------------------------
-
 \section{Serverseitiges Rendering - SSR}
 \label{sec:Serverseitiges Rendering}
 Bei der klassische Web-Architektur oder auch \textit{Thin Client - Fat Server”} 
@@ -1053,8 +1147,9 @@ anstatt reine CSR, für eine gute Indexierbarkeit. \cite{WebPerfomance}
 \\
 \\
 Da aber noch nicht alle Suchmaschinen und 
-Social Media Crawler dies unterstützen ist Universal Rendering ein 
-guter Workaround für eine bessere SEO und schnelle Ladezeiten für Anwender.
+Social-Media Crawler dies unterstützen ist Universal Rendering eine sinvolle Möglichkeit
+die SEO und SMO einer Website zu verbessern. Desweiteren bietet es eine bessere Nutzererfahrung,
+durch eine kürzere Zeit, bis der Nutzer die angeforederte Seite dargestellt begkommt. 
 
 
 % -------------------------------------------------------------------------------------------------
