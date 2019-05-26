@@ -100,8 +100,11 @@ zwei verschiedenen Arten des Renderns:
   wahrnehmbare Art, meistens in visueller Form. Für Webseiten findet dieses Rendern 
   immer auf der Clientseite, also im Browser statt. Der Browser verfügt über eine rendering Engine,
   die das darzustellene HTML Dokument als Document Object Model (DOM) und CSS Object Model (CSSOM) parst.
-  Anschließend wird die Seite von dem Browser gezeichnet und dargestellt. \cite{chen_geroimenko_2006}
-  \item test 
+  Anschließend wird die Seite von dem Browser gezeichnet und dargestellt.\cite{chen_geroimenko_2006}
+  \item Das generieren von HTML Dokumenten wird in der Webtechnologie auch als Rendern 
+  bezeichnet. Ruft man beispielsweise eine Webseite auf und es wird ein HTML Dokument für diese 
+  Anfrage generiert, bezeichnet man dies auch als Rendern. Dieser Vorgang kann im Gegensatz zum visuellen Rendern,
+  auf der Client- oder Serverseite stattfinden.
 \end{itemize}
 Der Begriff Universal Rendering beschreibt eine Kombination aus server- und clientseitiges rendern. 
 Dieser Ansatz wird oft auch als Isomorphic oder Server-Side Rendering bezeichnet.
@@ -778,7 +781,12 @@ viele Aspekte beim Entwickeln beachtet werden müssen,
 hat \textit{ZEIT} das Open Source Framework \textit{Next.js}, 
 basierend auf \textit{React} veröffentlicht. 
 Dies vereinfacht das Erstellen von Universal Anwendungen mit \textit{React}.
-\\
+\begin{figure}
+  \centering
+  \includegraphics[width=5cm]{images/nextprojectStructure}
+  \caption{\textit{Next.js} Projektstruktur\cite{arunoda}}
+  \label{Next.js Projektstruktur}
+\end{figure}
 \\
 \textit{Next.js} automatisiert das serverseitige Rendern, 
 so kann die Anwendung wie eine normale \textit{React} SPA entwickelt werden und 
@@ -787,7 +795,7 @@ Gleichzeitig hilft \textit{Next.js} mit der Wartbarkeit der Webseite,
 indem es einen Dateibasierten Ansatz zum Verwalten der Seiten, 
 Komponenten und Routen verwendet. 
 Wird beispielsweise eine about.js Datei unter dem Pfad /pages/about.js erstellt, 
-kann die Seite einfach über die URL /about aufgerufen werden. 
+kann die Seite einfach über die URL /about aufgerufen werden\ref{Next.js Projektstruktur}. 
 \textit{Next.js} stellt dabei sicher, 
 dass die Seite automatisch auf dem Server vorgerendert wird und 
 anschließend als SPA auf dem Client verfügbar ist. 
