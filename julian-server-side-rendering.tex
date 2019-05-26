@@ -91,14 +91,17 @@ Eine moderne Webanwendungen sollten folgende Anforderungen erfüllen\cite{Isomor
 
 \subsection{Terminologie}
 \label{subsec:Terminologie}
-Beim Rendern von Webtechnologien unterscheidet man zwischen dem Rendern auf dem Server und dem Client:
-
+Beim Rendern in der Webtechtechnologie Unterscheidet man zwischen 
+zwei verschiedenen Arten des Renderns:
 \begin{itemize}
   \setlength\itemsep{1em}
-  \item  \textbf{SSR} Server-Side Rendering: Rendern auf der Server Seite bezieht sich auf das generieren eines HTML Dokumentes 
-  aus einer Single Page Application. 
-  \item  \textbf{CSR} Client-Side Rendering: Rendern auf der Client Seite bezieht sich auf das generieren und parsen eines 
-  HTML Dokumentes zu einem DOM und darstellen für den Anwender. 
+  \item Im allgemeinen Sprachgebrauch versteht man unter dem
+  Begriff des Renderns, das Abbilden von Informationen für eine von dem Benutzer
+  wahrnehmbare Art, meistens in visueller Form. Für Webseiten findet dieses Rendern 
+  immer auf der Clientseite, also im Browser statt. Der Browser verfügt über eine rendering Engine,
+  die das darzustellene HTML Dokument als Document Object Model (DOM) und CSS Object Model (CSSOM) parst.
+  Anschließend wird die Seite von dem Browser gezeichnet und dargestellt. \cite{chen_geroimenko_2006}
+  \item test 
 \end{itemize}
 Der Begriff Universal Rendering beschreibt eine Kombination aus server- und clientseitiges rendern. 
 Dieser Ansatz wird oft auch als Isomorphic oder Server-Side Rendering bezeichnet.
@@ -121,7 +124,7 @@ und beschrieben warum eine Notwendigkeit für Universal Rendering besteht. Nach 
 \newpage
 % -------------------------------------------------------------------------------------------------
 
-\section{Serverseitiges Rendering}
+\section{Serverseitiges Rendering - SSR}
 \label{sec:Serverseitiges Rendering}
 Bei der klassische Web-Architektur oder auch \textit{Thin Client - Fat Server”} 
 Architektur, befindet sich die Anwendungslogik auf der Serverseite. 
@@ -203,7 +206,7 @@ Client gleich ist.
 \newpage
 % -------------------------------------------------------------------------------------------------
 
-\section{Clientseitiges Rendering}
+\section{Clientseitiges Rendering - CSR}
 \label{sec:Clientseitiges Rendering}
 Single Page Application kurz SPAs werden durch moderne Frameworks wie \textit{React}, 
 Vue und \textit{Angular} immer beliebter. SPAs sind komfortabel zu Entwickeln 
@@ -262,15 +265,15 @@ Da beim Aufrufen einer CSR Anwendung der Server nur mit einem Template
 antwortet, dass nur JavaScript und kein Inhalt enthält, 
 kann es nicht von Suchmaschinen indexiert werden. 
 Beim Indexieren einer \textit{React} Anwendung beispielsweise, 
-enthält der Crawler die in Abbildung \ref{HTML Antwort einer SPA React Anwendung} enthaltene Antwort des Servers. 
+enthält der Crawler die in Abbildung \ref{HTML Antwort einer Single Page React Anwendung} enthaltene Antwort des Servers. 
 Die Antwort enthält im Body des HTML Dokuments nur ein ROOT Element und Links zu
 den benötigten JavaScript Datein. Nach dem Laden und Initalisieren des clientseitigen Frameworks,
 started das Framework im ROOT Element der Anwendung
 \begin{figure}[h]
   \centering
   \includegraphics[width=12cm]{images/react-code-small}
-  \caption{HTML Antwort einer SPA \textit{React} Anwendung}
-  \label{HTML Antwort einer SPA React Anwendung}
+  \caption{HTML Antwort einer Single Page \textit{React} Anwendung}
+  \label{HTML Antwort einer Single Page React Anwendung}
 \end{figure}
 \\
 Damit ein Suchmaschienprovider eine Single Page Anwendung indexieren kann,
@@ -302,7 +305,7 @@ kann dies die Nutzerzahlen einer Anwendung beeinflussen.
 \\
 \\
 Single Page Applications sind sehr dynamisch und interaktiv. 
-Sie lassen sich mit Hilfe von Frameworks wie \textit{React} komfortabel entwickeln
+Sie lassen sich mithilfe von Frameworks wie \textit{React} komfortabel entwickeln
 und benötigen keinen dynamischen Server. Es reicht aus, 
 die Template Datei statisch bereitzustellen. 
 Allerdings brauchen SPAs lange zum Laden der ersten Seite
@@ -338,7 +341,7 @@ Ab diesem Zeitpunkt kann die Seite für den Anwender dargestellt werden,
 er erhält den First Contentful Paint (FCP). 
 Anschließend lädt der Browser im Hintergrund eine Single Page Application herunter
 und startet sie. 
-Jetzt funktioniert die Anwendung wie eine Single Page Anwendung und 
+Jetzt funktioniert die Anwendung wie eine Single Page Application und 
 verwendet Client Side Rendering. Abbildung \ref{Universal Anwendung} zeigt wie bei dem 
 ersten Aufrufen der Anwendung eine \textit{React} Anwendung auf dem Server verwendet wird,
 zum generieren, rendern, eines HTML Dokuments. 
@@ -454,12 +457,12 @@ es somit zeitnah für den Benutzer darstellen. \cite{krajka_2015}
 Vue.js und \textit{React} besitzen für das Serverseitigen rendern eine \textit{renderToString()} Funktion. 
 Diese Funktion erzeugt aus der aktuellen Instanz des Frameworks, 
 auf der Serverseite, 
-mit hilfe eines virtuellen DOM ein HTML String. 
+mithilfe eines virtuellen DOM ein HTML String. 
 Dieser wird dem Client beim ersten Aufrufen der Website zurückgegeben.
 \\
 \\
 Das rendern auf der Serverseite kostet allerdings Zeit und Performance. 
-Das Rendern einer 1 Megabyte Anwendung mit hilfe der \textit{renderToString() }
+Das Rendern einer 1 Megabyte Anwendung mithilfe der \textit{renderToString() }
 Funktion benötigt bis zu 1 Sekunde. 
 Zusätzlich läuft die render Funktion in Node.js, 
 was bedeutet, sie ist single-threaded und skaliert nicht gut. 
@@ -491,7 +494,7 @@ bekommt der Benutzer keine veralteten Inhalte angezeigt. \cite{garett_2015}
 \end{figure}
 \\
 Durch das Caching verbessert sich die Server Performance, 
-da nicht bei jedem erneuten Aufruf ein HTML Dokument mit Hilfe des virtuellen DOMs und 
+da nicht bei jedem erneuten Aufruf ein HTML Dokument mithilfe des virtuellen DOMs und 
 der jeweiligen \textit{rendernToString()} Methode generieren werden muss. 
 \\
 \\
@@ -515,7 +518,7 @@ das auf die clientseitige Datenänderungen und Benutzerinteraktionen reagiert.
 \\
 Beim ersten Laden einer Universal Website antwortet der Server mit einem, 
 durch den virtuellen DOM, gerenderten HTML Dokument. 
-Mit Hilfe dieses HTML erreicht man einen schnellen First Contentful Paint, 
+Mithilfe dieses HTML erreicht man einen schnellen First Contentful Paint, 
 allerdings ist die Seite ist noch nicht interaktiv. 
 Da schon gerendertes HTML vorhanden ist, 
 wird dies nicht weggeworfen. Stattdessen wird das HTML "hydrated", 
@@ -583,7 +586,7 @@ Folgende Schritte werden beim Aufrufen einer Universal Anwendung aufsgeführt:
   \setlength\itemsep{1em}
   \item Beim ersten Aufrufen einer Seite, sendet der Client eine Anfrage an den Server.
   \item Auf der Serverseite läuft ein Node.js Prozess, 
-  dieser generiert mit Hilfe eines virtuellen DOMs 
+  dieser generiert mithilfe eines virtuellen DOMs 
   ein statisches HTML Dokument als Antwort auf die Anfrage. 
   Das HTML ist auf den Anwender angepasst und enthält bereits anwenderspezifische Informationen.
   \item Der Server sendet das vorgerenderte Dokument an den Client.
@@ -633,10 +636,10 @@ Folgende Schritte werden beim Aufrufen einer Universal Anwendung aufsgeführt:
   muss nicht wie bei Single Page Anwendungen warten bis der Client alle Skripts geladen und 
   installiert hat. Die Zeit bis die Anwendung interaktiv ist, 
   ist größer als bei reinen serverseitigen Anwendungen, 
-  aber mit Hilfe von lazy Hydration besser als bei SPAs. 
+  aber mithilfe von lazy Hydration besser als bei SPAs. 
   \item Nach der Hydratation bei Universal Anwendungen, 
   läuft auf der Client Seite eine normale Single Page Applications. 
-  Dies erlaubt wie bei SPAs eine Anwendung anzubieten, 
+  Dies erlaubt wie bei SPAs eine Webseite anzubieten, 
   die benutzerfreundlich und interaktiv ist.
   \item Moderne Universal Rendering Frameworks sind komfortabel zu entwickeln. 
   So ist es möglich Programmcode einmalig zu schreiben und 
@@ -706,7 +709,7 @@ Beim Prerendering werden vordefinierte Seiten der Anwendung im Vorraus als HTML 
 statisch auf einem statischen Server gespeichert. 
 \\
 \\
-Dies erlaubt es, beim Aufrufen mit Hilfe von Hydration, 
+Dies erlaubt es, beim Aufrufen mithilfe von Hydration, 
 eine schnellere TTFB im Vergleich zu Universal rendering. 
 Desweiteren ist auch keine Node.js Prozess auf dem Server nötig. 
 Da die erste Antwort aber statisch und nicht dynamisch ist, 
@@ -738,7 +741,7 @@ der meist auf den gängigen Rendering-Engines wie Chrome basiert,
 um Web-Inhalte darzustellen. Dieser ist aber “Kopflos”, was bedeutet, 
 er besitzt keine UI Elemente. 
 Ursprünglich wurden Headless Browser zum automatischen Testen von Webseiten entwickelt, 
-sie können aber auch verwendet werden um Single Page Anwendungen auf dem Server zu rendern. 
+sie können aber auch verwendet werden um Single Page Application auf dem Server zu rendern. 
 \\
 \\
 Ruft ein Anwender oder ein Suchmaschinen Crawler eine Website auf, 
@@ -856,7 +859,7 @@ Die Universal Rendering Seite kann jetzt über einen spezifizierten Port aufgeru
 \subsection{Vue.js und Nuxt.js}
 \label{subsec:Vue.js und Nuxt.js}
 Vue ist ein weiteres clientseitiges JavaScript Framework 
-zum Erstellen von Single Page Anwendungen. 
+zum Erstellen von Single Page Application. 
 Es wurde 2014 von Evan You veröffentlicht und 
 wird seitdem von der Community weiterentwickelt. 
 In den letzten Monaten ist die Popularität von Vue gestiegen und 
@@ -962,7 +965,7 @@ von dem serverseitigen Framework Ruby on Rails zu Universal Rendering mit \texti
 \subsection{Wann ist Universal Rendering sinnvoll}
 \label{subsec:Wann ist Universal Rendering sinnvoll}
 Das Verwenden von Universal Rendering bringt viele Vorteile und 
-löst das Performance und SEO Problem von Single Page Anwendungen. 
+löst das Performance und SEO Problem von Single Page Applications. 
 Universal Anwendungen bringen Kosten durch Server Performance und sind aufwendig zu skalieren. 
 Aus diesen Gründen ist das Verwenden von Universal Rendering nicht immer sinnvoll und notwendig.
 \\
@@ -1008,7 +1011,7 @@ Das Einsetzen einer Universal rendering Anwendung ist bei folgenden Punkten sinn
 \end{itemize}
 \subsection{Ausblick}
 \label{subsec:Ausblick}
-Der Google Crawler kann aktuell schon Single Page Anwendungen indexieren, 
+Der Google Crawler kann aktuell schon Single Page Application indexieren, 
 wie Google 2018 bei der Google io zeigt. 
 Der Crawler verfügt über eine eigene rendering Engine, 
 ähnlich wie ein Headless Browser, 
@@ -1032,7 +1035,7 @@ Gleichzeitig besitzen noch nicht alle Suchmaschinen neue Crawler
 zum indexieren reiner clientseitigen Anwendung. 
 Google berichtet, dass immer mehr JavaScript für Webseiten benötigt wird, 
 wie die Abbildung \ref{JavaScript pro Website} zeigt. 
-Aus diesen Gründen verbessern sie den Google Crawler weiterhin für eine bessere Indexierung von SPA Anwendungen. 
+Aus diesen Gründen verbessern sie den Google Crawler weiterhin für eine bessere Indexierung von SPAs. 
 In der Zukunft kann die Indexierbarkeit von CSR und SSR Anwendungen gleich sein. 
 Bei der Google io 2019 sagt Google, 
 dass sie sicherstellen wollen, 
