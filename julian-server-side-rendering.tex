@@ -20,6 +20,7 @@
 \usepackage{hyperref}
 \numberwithin{figure}{section}
 
+
 %
 % ECMAScript 2015 (ES6) definition by Gary Hammock
 %
@@ -136,7 +137,7 @@
   Immer mehr Webseiten verwenden clientseitiges Rendern um interaktive Single Page Anwendungen 
   anzubieten. Single Page Anwendungen erlauben eine bessere Nutzererfahrung,
   führen aber zu einer schlechteren Indexierbarkeit und Ladezeit der Webseite. Universal Rendering
-  löst diese Probleme, indem sie clientseitiges und serverseitiges Rendern kombinieren. Diese Arbeit 
+  löst diese Probleme, indem Sie clientseitiges und serverseitiges Rendern kombinieren. Diese Arbeit 
   evaluiert die Vor -und Nachteile der jeweiligen Rendermethoden und erläutert die Funktion von Universal 
   Rendering.
 \end{abstract}
@@ -163,32 +164,32 @@ vollständig im Browser auf einer Seite liefen.
 Um dies zu ermöglichen wird clientseitiges rendern verwendet. 
 Single Page Applications oder kurz SPAs, bieten Vorteile für den Anwender: 
 Sie reagieren schnell auf Benutzerinteraktionen und können zwischen Seiten navigieren, 
-ohne sie komplett neu zu laden. Gleichzeitig sind SPAs komfortabel zu entwickeln, 
-dank moderner Frameworks. Beide Varianten, serverseitiges und clientseitiges rendern, 
+ohne sie komplett neu zu laden. Dank moderner Frameworks sind SPAs komfortabel zu entwickeln.
+Beide Varianten, serverseitiges und clientseitiges rendern, 
 haben Vor- und Nachteile. Universal Rendering kombiniert die beiden Ansätze und 
 erfüllt alle Anforderungen an eine moderne Webanwendung.
 
 \subsection{Anforderungen an eine Webanwendung}
 \label{subsec:Anforderungen an eine Webanwendung}
 
-Eine moderne Webanwendungen sollten folgende Anforderungen erfüllen\cite{IsomorphicApps}:
+Moderne Webanwendungen sollten folgende Anforderungen erfüllen\cite{IsomorphicApps}:
 \begin{itemize}
   \setlength\itemsep{1em}
   \item Damit die Seite von Suchmaschinen gefunden werden kann, sollte sie von Suchmaschinen Crawler indexierbar sein. 
   Dies wird Suchmaschinenoptimierung oder auch SEO 
   (engl. search engine optimization) genannt. 
   \item Eine moderne Webseite muss beim Aufrufen für den Anwender schnell laden. Der Anwender sollte nicht lange warten 
-  müssen bis er die Anwendung sieht und mit ihr interagieren kann
+  müssen bis er die Anwendung sieht und mit ihr interagieren kann.
   \item Eine moderne Webanwendung muss dynamisch und interaktiv sein. Die Anwendung sollte auf Benutzereingaben reagieren, 
   ohne lange Ladezeiten oder neuladen der Seite.
-  Die Anwendung sollte einfach zu entwickeln sein und gleichzeitig muss sichergestellt werden, 
+  Die Anwendung sollte einfach zu entwickeln sein, gleichzeitig muss sichergestellt werden, 
   dass der Programmcode einfach zu pflegen ist. 
-  Code duplikation sollte minimiert werden.
+  Code Duplikation sollte minimiert werden.
 \end{itemize}
 
 \subsection{Terminologie}
 \label{subsec:Terminologie}
-Beim Rendern in der Webtechtechnologie Unterscheidet man zwischen 
+Beim Rendern in der Webtechtechnologie unterscheidet man zwischen 
 zwei verschiedenen Arten des Renderns:
 \begin{itemize}
   \setlength\itemsep{1em}
@@ -196,42 +197,46 @@ zwei verschiedenen Arten des Renderns:
   Begriff des Renderns, das Abbilden von Informationen für eine von dem Benutzer
   wahrnehmbare Art, meistens in visueller Form. Für Webseiten findet dieses Rendern 
   immer auf der Clientseite, also im Browser statt. Der Browser verfügt über eine rendering Engine,
-  die das darzustellene HTML Dokument als Document Object Model (DOM) und CSS Object Model (CSSOM) parst.
+  die das darzustellende HTML Dokument als Document Object Model (DOM) und CSS Object Model (CSSOM) parst.
   Anschließend wird die Seite von dem Browser gezeichnet und dargestellt.\cite{chen_geroimenko_2006}
   \item Das generieren von HTML Dokumenten wird in der Webtechnologie auch als Rendern 
   bezeichnet. Ruft man beispielsweise eine Webseite auf und es wird ein HTML Dokument für diese 
   Anfrage generiert, bezeichnet man dies auch als Rendern. Dieser Vorgang kann im Gegensatz zum visuellen Rendern,
   auf der Client- oder Serverseite stattfinden.
 \end{itemize}
-Der Begriff Universal Rendering beschreibt eine Kombination aus server- und clientseitiges rendern. 
+Der Begriff Universal Rendering beschreibt eine Kombination aus server- und clientseitigem rendern. 
 Dieser Ansatz wird oft auch als Isomorphic oder Server-Side Rendering bezeichnet.
 Folgende Begriffe beschreiben unterschiedliche Zeiten beim Laden einer Webseite:
 \begin{itemize}
   \setlength\itemsep{1em}
-  \item \textbf{TTFB}: Time to First Byte - Zeit bis zum ersten Byte -  Die Zeit zwischen dem Klicken auf ein Link und Erhalten der Daten vom Server.
+  \item \textbf{TTFB}: Time to First Byte - Zeit bis zum ersten Byte -  Die Zeit zwischen dem Klicken auf ein Link und dem Erhalten der Daten vom Server.
   \item \textbf{FP}: First Paint - der Zeitpunkt an dem der erste Inhalt für den User sichtbar wird.
-  \item \textbf{FCP}: First Contentful Paint oder auch First Meaningful Paint - Der Zeitpunkt, an dem der Benutzer den wichtigsten Inhalt einer Website als fertig geladen sieht. Die Zeit bis zum FCP wird auch als kritischer Rendering-Pfad (engl.:Critical Rendering Path) bezeichnet.
+  \item \textbf{FCP}: First Contentful Paint oder auch First Meaningful Paint - Der Zeitpunkt, an dem der Benutzer den wichtigsten Inhalt einer Website als fertig geladen sieht. Die Zeit bis zum FCP wird auch als kritischer Rendering-Pfad (engl. :Critical Rendering Path) bezeichnet.
   \item \textbf{TTI}: Time To Interactive - Die Zeit bis die Seite interaktiv wird und der Anwender mit ihr interagieren kann.
 \end{itemize}
-Da die Anwendung vollständig auf der Client Seite läuft, ist es schwierig für Suchmaschinen Crawler die seite zu Indexieren was zu einer schlechten SEO führt.
-Des weiteren, dadurch dass die Webseite nicht auf dem Server, sonder vom Client gerendert wird, muss der User warten bis die seite vollständig gerendert wird.
-Server Side rendering ist eine Mischung beider Ansätze. Es kombiniert die SEO und Performance von Server seitigen Applikationen und die Interaktivität und flexibilität von Client Side Anwendungen.
+Da die Anwendung vollständig auf der Client Seite läuft, ist es schwierig für Suchmaschinen Crawler die Seite zu Indexieren was zu einer schlechten SEO führt.
+Des weiteren, dadurch dass die Webseite nicht auf dem Server, sondern vom Client gerendert wird, muss der User warten bis die Seite vollständig gerendert wird.
+Server Side rendering ist eine Mischung beider Ansätze. Es kombiniert die SEO und Performance von serverseitigen Anwendungen und die Interaktivität und flexibilität von Client Side Anwendungen.
 \\
 \\
 Diese Arbeit beginnt mit den der Funktionsweise von server - und clientseitigen Rendern. 
-Es werden die Vor - und Nachteile der jeweiligen Vorgehensweisen untersucht 
-und beschrieben warum eine Notwendigkeit für Universal Rendering besteht. Nach einer Einführung in den Universal Rendering Vorgang, werden die verwendeten Technologien und deren Funktionsweise für das Rendern beschrieben. Anschließend werden die positiven und negativen Aspekte des Universal Rendering beschrieben und Alternativen genannt. Danach beschreibt die Arbeit unterschiedliche Frameworks zum implementieren der Rendering Technologie und zeigt wie Unternehmen Universal Rendering verwenden. Das Fazit erarbeitet wann welche Rendering Technologie verwendet werden soll und zeigt den aktuellen Stand von Suchmaschinen Crawler.
+Es werden Vor - und Nachteile der jeweiligen Vorgehensweisen untersucht 
+und beschrieben warum eine Notwendigkeit für Universal Rendering besteht. 
+Nach einer Einführung in den Universal Rendering Vorgang, werden die verwendeten Technologien und deren Funktionsweise für das Rendern beschrieben. 
+Anschließend werden die positiven und negativen Aspekte des Universal Rendering und Alternativen genannt. 
+Danach beschreibt die Arbeit unterschiedliche Frameworks zu der Rendering Technologie und zeigt wie Unternehmen Universal Rendering verwenden. 
+Das Fazit erarbeitet wann welche Rendering Technologie verwendet werden soll und zeigt den aktuellen Stand von Suchmaschinen Crawler.
 \newpage
 % -------------------------------------------------------------------------------------------------
 \section{Serverseitiges Rendering - SSR}
 \label{sec:Serverseitiges Rendering}
-Bei der klassische Web-Architektur oder auch \textit{Thin Client - Fat Server”} 
+Bei der klassischen Web-Architektur oder auch \textit{Thin Client - Fat Server”} 
 Architektur, befindet sich die Anwendungslogik auf der Serverseite. 
 Diese Logik wird durch Programmiersprachen wie PHP, Python oder Java 
 implementiert. Die Clientseite ist nur zuständig für die Document Object Model 
-Manipulation und dem Darstellen der Webseite im Browser. Abbildung \ref{Thin Client - Fat Server Architektur einer SSR Anwendung} 
+Manipulation und Darstellen der Webseite im Browser. Abbildung \ref{Thin Client - Fat Server Architektur einer SSR Anwendung} 
 zeuigt den Aufbau einer SSR Anwendung. Die Datenbankschicht ist zuständig für das Komunizieren mit einer exteren
-Datenbank, die Anwendungsschicht verarbeitet die Anfrange und beinhaltet die eigentliche Logik und die Präsentationsschicht generiert,
+Datenbank, die Anwendungsschicht verarbeitet die Anfrange und beinhaltet die eigentliche Logik. Die Präsentationsschicht generiert,
 das sogennante rendern, das HTML Dokument. \cite{IsomorphicApps} \cite{subramanian}
 \begin{figure}[h]
   \centering
@@ -253,7 +258,7 @@ Beim Erhalten der Antwort, sieht der Anwender schon den First Contentful Paint
 und kann mit der Seite interagieren. Damit ist die Zeit bis zum FCP gleich lang, 
 wie die Time to Interactive der Website. Dies bringt eine gute Nutzererfahrung, 
 da der User sofort nach dem Laden mit der Website interagieren kann, 
-anders als bei Clientseitigen Anwendungen. 
+anders als bei clientseitigen Anwendungen. 
 Da die Webseite direkt mit HTML antwortet, ist es einfach für Suchmaschinen Crawler 
 die Webseite zu indexieren. 
 \\
@@ -277,11 +282,11 @@ Ajax oder auch “asynchronous JavaScript and XML” erlaubt eine asynchrone Dat
 \\
 Ajax löst das Problem der synchronen Kommunikation klassischer Webanwendungen. 
 Ajax ermöglicht es asynchron, 
-den Inhalt einer Webseite zu aktualisieren und Daten zum Server senden und empfangen, 
+den Inhalt einer Webseite zu aktualisieren und Daten zum Server senden, 
 ohne neuladen der Webseite. Damit dies möglich ist, 
 kommuniziert die Clientseite, mittels Ajax, mit dem Server. 
 So ist es möglich, interaktive und dynamische Webanwendungen zu bauen, 
-die sofort reagieren ohne ein Neuladen der Seite. \cite{IsomorphicApps}
+die sofort reagieren. \cite{IsomorphicApps}
 \begin{figure}[h]
   \centering
   \includegraphics[width=12cm]{images/serverajax}
@@ -299,7 +304,7 @@ Es erfordert aber auch doppelte Templates und erhöht den Programmanteil sowie L
 Um Ajax zu benutzen ist mehr JavaScript auf der Clientseite erforderlich. 
 Besitzt eine Anwendung Logik auf der Client- und Serverseite, 
 wird es schwerer diese zu entwickeln. 
-ie Wartbarkeit wird erhöht und es sind mehr Unittests nötig, 
+Die Wartbarkeit wird erhöht und es sind mehr Unittests nötig, 
 die sicherstellen, dass der Zustand der Anwendung auf Server und 
 Client gleich ist. 
 \newpage
@@ -679,7 +684,8 @@ ersten Aufrufen der Webseite nötig.
   \caption{Universal Rendering Architektur}
   \label{Universal Rendering Architektur}
 \end{figure}
-\\
+\newpage
+\noindent
 Folgende Schritte werden beim Aufrufen einer Universal Anwendung aufsgeführt:
 \begin{enumerate}
   \setlength\itemsep{1em}
@@ -704,6 +710,109 @@ Folgende Schritte werden beim Aufrufen einer Universal Anwendung aufsgeführt:
   \item Ab diesem Zeitpunkt werden alle Interaktionen und 
   Navigationen zwischen den Seiten durch Ajax Anfragen durchgeführt.
 \end{enumerate}
+\newpage
+\subsection{Implementierung einer einfachen Universal Rendering Anwendung}
+\label{subsec:Implementierung einer einfachen Universal Rendering Anwendung}
+Folgendes Beispiel zeigt die Implementierung einer vereinfachten Universal Anwendung mit dem 
+\textit{React} Framework. Die Anwendungen soll Fakten über eine API abrufen und darstellen. 
+Auf der Client- und Serverseite werden ES2015 JavaScript Features verwendet, 
+wofür ein JavaScript Compiler wie \textit{Bable} nötig ist. Es wird \textit{Webpack} verwendet
+zum bundeln der JavaScript Dateien zu eiener bundle.js Datei.
+\\
+\\
+Listing \ref{index.html} zeigt das HTML Dokument der Anwendung. 
+Die \textit{React} Anwendung wird in dem div-Tag mit der root-id plaziert.
+In dem darauf folgenden script-Tag wird eine bundle.js Datei bezogen, die die benötigten
+JavaScript Dateien für \textit{React} enthält.
+\begin{lstlisting}[style=ES6, caption={index.html},label=index.html]
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="UTF-8">
+      <title>React Server Side Rendering</title>
+    </head>
+    <body>
+      <div id="root"><!-- ::APP:: --></div>
+      <script type="text/javascript" src="bundle.js"></script>
+    </body>
+  </html>
+\end{lstlisting}
+In der App.js \ref{app.js} Datei wird eine \textit{React} Komponente erstellt. Über die \textit{props}(Properties)
+werden die Fakten an diese übergeben. Anschließend wird über die Fakten interiert und 
+als Liste in HTML zurückgegeben.
+\begin{lstlisting}[style=ES6, caption={App.js}, label=app.js]
+  import React from 'react';  
+    function App(props) {
+      const facts = props.facts.map((fact, i) => {
+        return <li key={i}>{fact.text}</li>
+      });
+    }
+    return (
+      <ul> {facts} </ul>
+    );
+    export default App;
+\end{lstlisting}
+\newpage
+\noindent
+In der facts.js Datei werden die Fakten von einer API geladen.
+Die Fakten werden als JSON über eine GET Request mit der Bibliothek isomorphic-fetch bezogen.
+Isomorphic-fetch ist eine universal Implementierung der fetch-Funktion und funktioniert somit auch
+auf der Serverseite.
+\begin{lstlisting}[style=ES6, caption={facts.js}]
+  import fetch from 'isomorphic-fetch';
+  
+  export default function getFacts() {
+    return fetch("https://non-ssr-react.firebaseio.com/facts.json").
+    then(res => res.json());
+  }
+\end{lstlisting}
+Listing \ref{index.js} initalisiert die Anwendungen. Zuerst werden die Fakten über die
+\textit{getFacts()} Funktion bezogen, anschließend wird die render-Funktion von \textit{React}
+aufgerufen. Diese erwartet als erstes Argument eine \textit{React} Komponente, in unserem Fall
+App.js. Dieser werden die Fakten als \textit{props} übergenen. Als zweites Argument erwartet
+die render-Funktion die Stelle an dem die React Anwendung gestartet werden soll, hier das root Element in der
+index.html. Damit ist die clientseitige Implementierung der Anwendung abgeschlossen.
+\begin{lstlisting}[style=ES6, caption={index.js},label=index.js]
+  import React from 'react';
+  import { render } from 'react-dom';
+  import App from './App';
+  import getFacts from './facts';
+  
+  getFacts().then(facts => {
+    render(<App facts={facts} />, document.getElementById('root'));  
+  }); 
+\end{lstlisting}
+Für die serverseitige Implementierung wird in Listing \ref{server.js} das \textit{express} Framework verwendet.
+Von der Clientseite werden die JavaScript Dateien App.js und facts.js geladen.
+Nach dem Initialisieren des Express-Servers, wird in Zeile 11 definiert, dass auf jede GET Anfrage
+mit einem HTML Dokument geantwortet wird. Die Funktion \textit{getFacts()} wird aufgerufen, um 
+anschließend die \textit{React} Anwendung, mit den Fakten, zu rendern. Das gerenderte
+HTML wird in die index.html eingesetzt und als Antwort auf die GET Anfrage zurückgesendet.
+Nach dem Starten des Servers mit Node.js, ist die Universal Rendering Anwendungen über Port 3006 erreichbar.
+\newpage
+\begin{lstlisting}[style=ES6, caption={server.js},label=server.js]
+import * as React from 'react';
+import { renderToString } from 'react-dom/server';
+import App from './src/App';
+import getFacts from './src/facts';
+import express from 'express';
+import * as fs from 'fs';
+
+const index = fs.readFileSync('./src/index.html', 'utf8');
+
+const app = express();
+app.get('**', (req, res) => {
+  getFacts().then(facts => {
+    const html = renderToString(<App facts={facts} />);
+    const finalHtml = index.replace('<!-- ::APP:: -->', html);
+    res.send(finalHtml);
+  });
+});
+
+app.listen(3006, () => { console.log('Listening on 3006.'); });
+\end{lstlisting}
+Das Beispiel zeigt die Grundidee einer Universal Rendering Anwendung, für komplexere Webseiten ist
+es aber empfehlenswert ein Framework, wie in Kapitel \ref{sec:Frameworks} gezeigt, zu verwenden.\cite{east_2017} \cite{kr_2018}
 \newpage
 \subsection{Vorteile}
 \label{subsec:Vorteile}
@@ -730,6 +839,7 @@ Folgende Schritte werden beim Aufrufen einer Universal Anwendung aufsgeführt:
   so kann der Twitter Bot die Webseite einfach crawlen und eine Vorschau zu der Webseite generieren, 
   dass unter dem Tweet eingeblendet wird. 
   Bei einer SPAs ist dies nicht der Fall.
+  \newpage
   \item Durch das Server Side Rendern der ersten Anfrage, 
   erhält der User eine schnelle Antwort auf die Anfrage und 
   muss nicht wie bei Single Page Anwendungen warten bis der Client alle Skripts geladen und 
@@ -791,13 +901,13 @@ Dies führt zu einer besseren TTFB als bei Universal Rendering.
   \label{Verspätete TTI}
 \end{figure}
 \\
-Ein weiteres Problem stellt die Time to Interactive (TTI) dar. 
+Ein weiteres Problem stellt die Time to interactive (TTI) dar. 
 Bei Universal Rendering erlaubt das Vorrendern auf dem Server, 
 eine Website schnell darzustellen. 
 Zu diesem Zeitpunkt kann der Anwender noch nicht mit der Seite interagieren. 
 Wenn der Benutzer sehr schnell ist und auf eine Schaltfläche klickt, 
 wird die Aktion erst ausgeführt wenn die clientseitige Hydration abgeschlossen ist. 
-Je nach Art der Webseite kann dies zu Problemen führen wie Abbildung \ref{Verspätete TTI} zeigt
+Je nach Art der Webseite kann dies zu Problemen führen wie Abbildung \ref{Verspätete TTI} zeigt.
 
 
 \subsection{Alternativen}
@@ -825,7 +935,8 @@ Gatsby und Vuepress verwendet.
   \includegraphics[width=9cm]{images/WebsiteSceleton}
   \caption{Skelett einer Webanwendung \cite{breux_2018}}
 \end{figure}
-\\
+\newpage
+\noindent
 Wenn man nur die SEO einer Single Page Applications verbessern will, 
 ist es auch möglich, 
 wichtige Teile der Anwendung, 
@@ -860,7 +971,7 @@ was aber zu weiteren Kosten führen kann.
 % -------------------------------------------------------------------------------------------------
 
 \section{Frameworks}
-\label{sec:Evaluation}
+\label{sec:Frameworks}
 Universal Rendering Frameworks vereinfachen das Verwenden von clientseitigen Frameworks wie Vue, 
 \textit{React} und \textit{Angular} zum Entwickeln für Universal Rendering Anwendungen. 
 
@@ -1056,10 +1167,6 @@ wie durch das serverseitige Vorrendern,
 die Webseite schneller lädt. Beim clientseitigen Rendern hingegen, 
 muss der Benutzer 1 Sekunde warten bis die Seite geladen ist. 
 Bei schlechtem Internet, vergrößert sich diese Ladezeit schnell.
-\\
-\\
-Airbnb ist für eine bessere Ladezeit ihrer Webseite 
-von dem serverseitigen Framework Ruby on Rails zu Universal Rendering mit \textit{React} und Node.js gewechselt. 
 \newpage
 % -------------------------------------------------------------------------------------------------
 
@@ -1098,10 +1205,11 @@ kann mit ihnen interagieren.
 \begin{figure}
   \centering
   \includegraphics[width=10cm]{images/HackerNews}
-  \caption{Die Webseite HackerNews}
+  \caption{Die Webseite Hacker News}
   \label{Die WEbseite HackerNews}
 \end{figure}
-\\
+\newpage
+\noindent
 Das Einsetzen einer Universal rendering Anwendung ist bei folgenden Punkten sinnvoll: 
 \begin{itemize}
   \setlength\itemsep{1em}
@@ -1132,7 +1240,8 @@ Auch die Suchmaschine Bing kann SPAs indexieren. \cite{GoogleSearchAndJS} \cite{
   \caption{JavaScript pro Webseite \cite{SearchFriendly}}
   \label{JavaScript pro Website}
 \end{figure}
-\\
+\newpage
+\noindent
 Das Verwenden einer Single Page Anwendung 
 kann sich aktuell immer noch auf die Indexierbarkeit einer Anwendung auswirken. 
 Gleichzeitig besitzen noch nicht alle Suchmaschinen neue Crawler 
