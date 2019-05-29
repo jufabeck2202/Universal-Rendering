@@ -599,7 +599,7 @@ bekommt der Benutzer keine veralteten Inhalte angezeigt. \cite{garett_2015}
 \\
 Durch das Caching verbessert sich die Server Performance, 
 da nicht bei jedem erneuten Aufruf ein HTML Dokument mithilfe des virtuellen DOMs und 
-der jeweiligen \textit{rendernToString()} Methode generieren werden muss. 
+der jeweiligen \textit{rendernToString()} Methode generiert werden muss. 
 \\
 \\
 Bei modernen Web-Frameworks wie, Vue, 
@@ -623,7 +623,7 @@ das auf die clientseitige Datenänderungen und Benutzerinteraktionen reagiert.
 Beim ersten Laden einer Universal Website antwortet der Server mit einem, 
 durch den virtuellen DOM, gerenderten HTML Dokument. 
 Mithilfe dieses HTML erreicht man einen schnellen First Contentful Paint, 
-allerdings ist die Seite ist noch nicht interaktiv. 
+allerdings ist die Seite noch nicht interaktiv. 
 Da schon gerendertes HTML vorhanden ist, 
 wird dies nicht weggeworfen. Stattdessen wird das HTML "hydrated", 
 dadurch wird das statische HTML interaktiv. 
@@ -654,14 +654,14 @@ nachdem die Hydration abgeschlossen ist. \cite{vue.jsserver-sideguide} \cite{aru
 \\
 Lazy Hydration ist eine Möglichkeit die Zeit bis eine Webseite Interaktiv ist, 
 zu verbessern. Dabei wird die Hydratation des vorgerenderten HTML Dokuments des Servers verzögert und 
-inkrementell hydriert. Mit Lazy Hydration ist möglich, 
-bei Website zu implementieren, 
-dass die Kommentare am Ende der Website erst hydriert werden, 
+inkrementell hydriert. Mit Lazy Hydration ist es möglich
+zu implementieren, 
+dass Kommentare am Ende einer Website erst hydriert werden, 
 wenn sie für den Nutzer sichtbar sind. 
 Dies beschleunigt das Hydrieren der wichtigen Elemente für den Anwender und sorgt damit dafür, 
 dass die Website schneller interaktiv wird und sich die TTI verbessert. 
 Des weiteren ist es auch möglich, 
-statische Komponenten wie den Artikel Inhalt, nicht zu hydrieren.
+statische Komponenten wie den Artikelinhalt, nicht zu hydrieren.
 \begin{figure}[h]
   \centering
   \includegraphics[width=5cm]{images/LazyHydration}
@@ -669,7 +669,7 @@ statische Komponenten wie den Artikel Inhalt, nicht zu hydrieren.
   \label{Lazy Hydratation mit vue-lazy-hydration}
 \end{figure}
 \\
-Vue.js bietet mit der Bibliothek \textit{vue-lazy-hydration }
+Vue.js bietet mit der Bibliothek \textit{vue-lazy-hydration}
 eine einfache Möglichkeit um Lazy Hydration zu implementieren. 
 Die Abbildung \ref{Lazy Hydratation mit vue-lazy-hydration} zeigt wie der Artikel erst Hydriert werden kann, 
 wenn er für den Nutzer sichtbar wird. \cite{maoberlehner_2018}
@@ -705,7 +705,7 @@ Folgende Schritte werden beim Aufrufen einer Universal Anwendung aufsgeführt:
   Anschließend findet die Hydration statt und 
   das statische vorgerenderte HTML wird 
   durch ein dynamisches HTML von der clientseitigen Anwendung ersetzt und 
-  anschließend zum DOM gerendert. 
+  gerendert. 
   Ab diesem Zeitpunkt ist die Website für den Anwender interaktiv.
   \item Ab diesem Zeitpunkt werden alle Interaktionen und 
   Navigationen zwischen den Seiten durch Ajax Anfragen durchgeführt.
@@ -825,22 +825,22 @@ es aber empfehlenswert ein Framework, wie in Kapitel \ref{sec:Frameworks} gezeig
 \begin{itemize}
   \setlength\itemsep{1em}
   \item Da beim ersten Aufrufen einer Universal Anwendung der Server mit einem HTML Dokument antwortet, 
-  ist dieser Rendering Ansatz genauso SEO freundlich wie normale klassische serverseitige Webseiten. 
+  ist dieser Rendering Ansatz genauso SEO-freundlich wie normale klassische serverseitige Webseiten. 
   Der Suchmaschinencrawler erhält ein indexierbares Dokument und muss nicht wie bei klassischen SPAs, 
   JavaScript Bundles laden und starten. 
   Abbildung \ref{HTMl Dokument einer Universal Anwendung}
-  zeig den Body einer HTML Universal Anwendung, der im gegensatz zu Single Page Anwendungen Nutzer Daten
+  zeig den Body einer HTML Universal Anwendung, der im Gegensatz zu Single Page Anwendungen Nutzer Daten
   enthält, da die erste Anfrage vom Server gerendert wurde.
-  Des weiteren benötigt man bei Universal Rendering keine Hash am ende von URLs, 
+  Des weiteren benötigt man bei Universal Rendering keine Hash am Ende von URLs, 
   wodurch der Crawler zwischen verschieden Links auf der Seite unterscheiden kann. 
   Dies verbessert nicht nur die Indexierbarkeit, 
   sondern auch die Social Media Performance der Website. 
   Schreibt man einen Twitter Post mit einem Link zu einer Universal Anwendung, 
-  so kann der Twitter Bot die Webseite einfach crawlen und eine Vorschau zu der Webseite generieren, 
-  dass unter dem Tweet eingeblendet wird. 
+  so kann der Twitter Bot die Webseite einfach crawlen und eine Vorschau generieren, 
+  die unter dem Tweet eingeblendet wird. 
   Bei einer SPAs ist dies nicht der Fall.
   \newpage
-  \item Durch das Server Side Rendern der ersten Anfrage, 
+  \item Durch das Server Side Rendern der ersten Anfrage 
   erhält der User eine schnelle Antwort auf die Anfrage und 
   muss nicht wie bei Single Page Anwendungen warten bis der Client alle Skripts geladen und 
   installiert hat. Die Zeit bis die Anwendung interaktiv ist, 
@@ -853,8 +853,8 @@ es aber empfehlenswert ein Framework, wie in Kapitel \ref{sec:Frameworks} gezeig
   \item Moderne Universal Rendering Frameworks sind komfortabel zu entwickeln. 
   So ist es möglich Programmcode einmalig zu schreiben und 
   die Frameworks rendern diesen server- und clientseitig. 
-  So können komfortable SPA Frameworks zum entwickeln der Clientseite verwendet werden. 
-  Dies macht die Anwendung einfacher zu Warten. 
+  So können komfortable SPA Frameworks zum Entwickeln der Clientseite verwendet werden. 
+  Dies macht die Wartbarkeit der Anwendung einfacher. 
   Das Verwenden von JavaScript auf dem Client und 
   Server vereinfacht zusätzlich das Entwickeln der Anwendung.
 \end{itemize}
@@ -868,7 +868,7 @@ Nachteile gegenüber klassischen Verfahren.
 \\
 Der größte Nachteil von Universal Rendering ist, 
 dass im Gegensatz zu clientseitigen Anwendungen, 
-ein render Prozess auf dem Server laufen muss. 
+ein Render Prozess auf dem Server laufen muss. 
 Die Dynamik des serverseitigen Vorrenderns 
 kann zu erheblichen Rechenaufwand auf dem Server führen, 
 was wiederum Kosten verursacht. 
@@ -888,9 +888,9 @@ ohne einen serverseitigen Prozess.
 So skaliert eine SPA deutlich besser, 
 da die Webseite vollständig auf der Clientseite gerendert wird.  
 Bei einer erhöhten Benutzerzahl, 
-ist die skalierung damit deutlich einfacher, 
-da nur ein werden. 
-Rein serverseitige Anwendungen benötigen zwar auch ein serverseitigen Prozess, 
+ist die Skalierung damit  einfacher, 
+da nur eine T
+Rein serverseitige Anwendungen benötigen zwar auch einen serverseitigen Prozess, 
 lassen sich aber besser skalieren, 
 da die Anfragen meist asynchron bearbeitet werden können. 
 Dies führt zu einer besseren TTFB als bei Universal Rendering.
@@ -912,9 +912,9 @@ Je nach Art der Webseite kann dies zu Problemen führen wie Abbildung \ref{Versp
 
 \subsection{Alternativen}
 \label{subsec:Alternativen}
-Eine Alternative zum Universal Rendering ist das clientseitige rendern mit Prerendering. 
+Eine Alternative zum Universal Rendering ist das clientseitige Rendern mit Prerendering. 
 Prerendering benötigt keinen vollständigen Server auf der Serverseite. 
-Beim Prerendering werden vordefinierte Seiten der Anwendung im Vorraus als HTML kompiliert und 
+Beim Prerendering werden vordefinierte Seiten der Anwendung im vorraus als HTML kompiliert und 
 statisch auf einem statischen Server gespeichert. 
 \\
 \\
@@ -925,7 +925,7 @@ Da die erste Antwort aber statisch und nicht dynamisch ist,
 erhält man beim ersten Aufrufen noch keine benutzerspezifischen Informationen. 
 Wenn die Anwendung benutzerspezifische Daten enthält, 
 wird in der Regel ein Skelett der Anwendung eingeblendet, 
-bis die Clientside initialisiert ist und die Daten zur verfügung stehen. 
+bis die Clientside initialisiert ist und die Daten zur Verfügung stehen. 
 Durch die statisch generierten Seiten, 
 ist die Anwendung einfacher zu Crawlen wie SPAs. 
 Prerendering wird von Frameworks wie \textit{Peact}, 
@@ -955,7 +955,7 @@ sie können aber auch verwendet werden um Single Page Application auf dem Server
 \\
 \\
 Ruft ein Anwender oder ein Suchmaschinen Crawler eine Website auf, 
-wird ein Headless Browser auf einem Server zum vorrendern verwendet. 
+wird ein Headless Browser auf einem Server zum Vorrendern verwendet. 
 Dies verbessert wie bei Universal Rendering die Zeit bis zum FCP. Gleichzeitig verbessert sich die SEO, da der Crawler ein indexierbares HTML Dokument erhält. 
 Problem dieses Vorgehens ist die Skalierbarkeit, 
 da für jeden Nutzer ein neuer Headless Browser gestartet werden muss. 
@@ -999,7 +999,7 @@ Dies vereinfacht das Erstellen von Universal Anwendungen mit \textit{React}.
 so kann die Anwendung wie eine normale \textit{React} SPA entwickelt werden und 
 \textit{Next.js} automatisiert das Vorrendern der Website. 
 Gleichzeitig hilft \textit{Next.js} mit der Wartbarkeit der Webseite, 
-indem es einen Dateibasierten Ansatz zum Verwalten der Seiten, 
+indem es einen dateibasierten Ansatz zum Verwalten der Seiten, 
 Komponenten und Routen verwendet. 
 Wird beispielsweise eine about.js Datei unter dem Pfad /pages/about.js erstellt, 
 kann die Seite einfach über die URL /about aufgerufen werden\ref{Next.js Projektstruktur}. 
@@ -1018,7 +1018,7 @@ Bei klassischen Single Page Anwendungen wird der gesamte JavaScript Code
 zu Beginn der Anwendung geladen. 
 Dies erhöht die Zeit bis zum FCP, da der User warten muss, 
 bis die gesamte Seite vom Client geladen ist. 
-Besonders bei mobilen Internet ist dies langsam. 
+Besonders bei mobilem Internet ist dies langsam. 
 Dieser Ansatz kann zu unnötigen Ladezeiten führen, 
 da möglicherweise auch JavaScript von Teilen der Anwendung geladen wird, 
 die der Benutzer gar nicht aufrufen will. 
@@ -1028,7 +1028,7 @@ den der Benutzer im Augenblick aufruft.
 Dies verringert die Zeit bis zum FCP und ist vorteilhaft für Mobilnutzer, 
 da die Ladezeiten minimiert werden.
 \textit{Next.js} teilt den Code automatisch anhand von Seitengrenzen auf. 
-Nur beim in Aufrufen der in Abbildung \ref{CodeSplitting in Next.js} gezeigten Seite,
+Nur beim Aufrufen der in Abbildung \ref{CodeSplitting in Next.js} gezeigten Seite,
 wird der Code von dem cowsay-browser geladen.
 Ruft der Benutzer beispielsweise die Route /about auf, 
 lädt der Client nur den JavaScript Code für diese Seite der Anwendung herunter.
@@ -1041,7 +1041,7 @@ lädt der Client nur den JavaScript Code für diese Seite der Anwendung herunter
 \\
 \textit{Next.js} bietet zudem eine Möglichkeit zum Prefetching, 
 dem Vorausladen von Seiten. 
-Das Vorausladen von Seiten kann in Kombination mit serverseitigen rendern verwendet werden, 
+Das Vorausladen von Seiten kann in Kombination mit serverseitigem Rendern verwendet werden, 
 um ohne Ladezeit zwischen verschieden Seiten der Anwendung zu navigieren. 
 \textit{Next.js} verwendet ein Link HTML Tag zum Navigieren zwischen Seiten, 
 dieses bietet die Funktion eines “prefetch” Attributes. 
@@ -1055,12 +1055,12 @@ wird \textit{Next.js} die Seiten im Hintergrund herunterladen.
 So wird dem Benutzer sofort nach klicken des Links die About Seite angezeigt.
 \\
 \\
-Zudem unterstützt \textit{Next.js} das dynamische Importieren von JavaScript Modulen sowie Komponenten. 
+Zudem unterstützt \textit{Next.js} das dynamische Importieren von JavaScript Modulen sowie von Komponenten. 
 Dies erlaubt das Importieren von Komponenten zur Laufzeit. 
 Mit dem dynamischen Laden von Komponenten ist es möglich, 
 nur die für den Nutzer sinnvollen Teile der Seite zu laden. 
-Beispielsweise kann je nachdem, 
-ob die Webseite von einem Mobilgerät oder eines Desktops aufgerufen wird, 
+Beispielsweise können, je nachdem 
+ob die Webseite von einem Mobilgerät oder einem Desktop aufgerufen wird, 
 unterschiedliche Komponenten dynamisch geladen werden. 
 \\
 \\
@@ -1080,14 +1080,14 @@ wird seitdem von der Community weiterentwickelt.
 In den letzten Monaten ist die Popularität von Vue gestiegen und 
 es ist aktuell das Projekt mit den meisten Sternen auf Github. 
 Vue.js besitzt auch ein virtuelles DOM, 
-was Universal rendern ermöglicht. 
+was Universal Rendern ermöglicht. 
 Um dies zu vereinfachen gibt es das Open Source Framework \textit{Nuxt.js}. \cite{vue.jsserver-sideguide}
 \\
 \\
 \textit{Nuxt.js} ähnelt stark \textit{Next.js}, 
 der einzige Unterschied ist, 
 dass es Vue.js anstelle von \textit{React} für das Schreiben des Interface Codes verwendet. 
-\textit{Nuxt.js} hat den gleichen dateibasierten Ansatz und ermöglicht automatisches Universal rendern von Anwendungen.
+\textit{Nuxt.js} hat den gleichen dateibasierten Ansatz und ermöglicht automatisches Universal Rendern von Anwendungen.
 \\
 \\
 Neben dem Universal Rendering bietet \textit{Nuxt.js} auch die Möglichkeit statische Dateien aus der Anwendung zu generieren und 
