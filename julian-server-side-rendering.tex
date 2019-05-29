@@ -370,9 +370,9 @@ antwortet, dass nur JavaScript und kein Inhalt enthält,
 kann es nicht von Suchmaschinen indexiert werden. 
 Beim Indexieren einer \textit{React} Anwendung beispielsweise, 
 enthält der Crawler die in Abbildung \ref{HTML Antwort einer Single Page React Anwendung} enthaltene Antwort des Servers. 
-Die Antwort enthält im Body des HTML Dokuments nur ein ROOT Element und Links zu
+Die Antwort enthält im Body des HTML Dokuments nur ein Root Element und Links zu
 den benötigten JavaScript Datein. Nach dem Laden und Initalisieren des clientseitigen Frameworks,
-started das Framework im ROOT Element der Anwendung
+started das Framework im ROOT Element der Anwendung.
 \begin{figure}[h]
   \centering
   \includegraphics[width=12cm]{images/react-code-small}
@@ -419,7 +419,7 @@ und sind für Suchmaschinen schwer zu optimieren. \cite{GoogleSearchAndJS}
 
 \section{Universal Rendering}
 \label{sec:Universal Rendering}
-Universal rendering kombiniert serverseitiges- und clientseitiges rendern. 
+Universal Rendering kombiniert serverseitiges und clientseitiges Rendern. 
 Es ermöglicht SEO freundliche, interaktive Webseiten zu bauen, 
 die gleichzeitig schnell auf dem Endgerät des Anwenders laden. 
 Um dies zu erreichen, 
@@ -435,21 +435,21 @@ verwendet Universal Rendering die positiven Aspekte beider Technologien.
   \label{Universal Anwendung}
 \end{figure}
 \\
-Beim Aufrufen einer Universal rendering Anwendung sendet der Browser
+Beim Aufrufen einer Universal Rendering Anwendung sendet der Browser
 zuerst eine Anfrage an den Server. 
 Dieser generiert aus einem Single Page Framework ein HTML Dokumemt,
 in dem das Framework auf dem Server gerendert wird. 
 Das HTML Dokument wird zusammen mit den benötigten Scripts eines clientseitiges Frameworks
 an den Browser gesendet.
 Ab diesem Zeitpunkt kann die Seite für den Anwender dargestellt werden, 
-er erhält den First Contentful Paint (FCP). 
+der First Contentful Paint (FCP) wird angezeigt. 
 Anschließend lädt der Browser im Hintergrund eine Single Page Application herunter
-und startet sie. 
+und startet diese. 
 Jetzt funktioniert die Anwendung wie eine Single Page Application und 
-verwendet Client Side Rendering. Abbildung \ref{Universal Anwendung} zeigt wie bei dem 
+verwendet Client Side Rendering. Abbildung \ref{Universal Anwendung} zeigt wie beim 
 ersten Aufrufen der Anwendung eine \textit{React} Anwendung auf dem Server verwendet wird,
 zum generieren, rendern, eines HTML Dokuments. 
-Nach dem darstellen des HTML Dokuments auf der Clientseite, 
+Nach dem Darstellen des HTML Dokuments auf der Clientseite, 
 wird die gleiche React Anwendung auf dem Client initalisiert.
 \\
 \\
@@ -467,25 +467,25 @@ HTML Dokument Antworten.
 Um dies zu ermöglichen kombiniert Universal Rendering mehrere Technologien. 
 Es wird Isomorphic JavaScript verwendet um JavaScript auf dem Server und Client auszuführen, 
 ein virtueller DOM für das Rendern auf dem Server und 
-Code Hydration für den Wechsel zwischen server zu clientseitigen Rendern. \cite{tarkus_alabes}
+Code Hydration für den Wechsel zwischen server- zu clientseitigen Rendern. \cite{tarkus_alabes}
 
 \subsection{Isomorphic JavaScript}
 \label{subsec:Isomorphic JavaScript}
 Isomorphic Javascript oder auch Universal Javascript genannt, 
 beschreibt JavaScript Code der auf der Server- und Clientseite ausführbar ist. 
-Die JavaScript Laufzeitumgebung Node.js ermöglichen dabei 
-das Ausführen von JavaScript-Code auf dem Server. 
+Die JavaScript Laufzeitumgebung Node.js ermöglicht dabei 
+das Ausführen von JavaScript Code auf dem Server. 
 Damit erlaubt Isomorphic JavaScript, 
 in Kombination mit einem virtuellen DOM, moderne clientseitige Frameworks auf der Serverseite auszuführen. 
 Dies verhindert auch das Problem der Code Duplikation, 
 da es möglich ist den gleichen JavaScript Code auf dem Server und Client auszuführen, 
-was die Wartbarkeit und Testbarkeit verbessert. \cite{airbnbeng_2013}
+das die Wartbarkeit und Testbarkeit verbessert. \cite{airbnbeng_2013}
 
 \subsection{Virtuelles DOM}
 \label{subsec:Virtuelles DOM}
 Das Virtuelle Document Object Model
 oder auch virtuelles DOM (eng. virtual DOM) ermöglicht 
-as Rendern moderner Web Anwendungen auf dem Server.
+das Rendern moderner Web Anwendungen auf dem Server.
 \\
 \\
 Bei modernen JavaScript Frameworks wie \textit{React}, 
@@ -502,7 +502,7 @@ Dabei wird ein virtuelles Document Object Model (virtual DOM) verwendet.
 \\
 Das Document Object Model ist eine Datenstruktur in Form eines Baumes, 
 die erzeugt wird, wenn der Browser das HTML Dokument rendert. 
-Ein aktualisieren des Inhaltes einer Website ist nur möglich, 
+Ein Aktualisieren des Inhaltes einer Website ist nur möglich, 
 durch Manipulation des DOMs, wofür Javascript eine API bietet. 
 Beispielsweise kann über “document.createElement” ein HTML Element 
 an den aktuellen DOM angehängt werden. 
@@ -513,16 +513,16 @@ Aktualisierung zu beschleunigen.
 \\
 \\
 Das virtuelle DOM ist eine Abstraktion des HTML-DOM und 
-von den Browser spezifischen Implementierungsdetails getrennt. 
-Das virtuelle DOM ist eine lokale Kopie des HTML- DOMs, 
+von den browserspezifischen Implementierungsdetails getrennt. 
+Das virtuelle DOM ist eine lokale Kopie des HTML DOMs, 
 dargestellt in Form einer JavaScript Struktur. 
-Dies erlaubt es Frameworks, 
+Dies erlaubt es Frameworks
 Berechnungen abstrakt durchzuführen und Änderungen im DOM des Browsers 
-zu überspringen die oft langsam und browserspezifisch sind.
+zu überspringen die oft langsam sind.
 \\
 \\
 Wenn sich der Zustand einer Anwendung ändert, 
-sollten möglichst wenig Elemente im HTML-Dom manipuliert werden. 
+sollten möglichst wenig Elemente im HTML DOM manipuliert werden. 
 Dafür gibt es zwei Ansätze bei aktuellen clientseitigen Frameworks:
 
 \begin{itemize}
@@ -533,7 +533,7 @@ Dafür gibt es zwei Ansätze bei aktuellen clientseitigen Frameworks:
   und mit dem vorhandenen DOM verglichen. 
   Anschließend berechnet \textit{React} die Änderungen und führt diese 
   Änderungen im HTML- DOM durch. 
-  Dieses Vorgehen ist performanter als direktes manipulieren 
+  Dieses Vorgehen ist performanter als direktes Manipulieren 
   des Document Object Models.
 
   \item \textit{Angular} und Vue.js benutzen sogenannte Observer. 
@@ -546,26 +546,26 @@ Dafür gibt es zwei Ansätze bei aktuellen clientseitigen Frameworks:
   um die Änderungen performanter durchzuführen. 
   Anschließend wird nur das sich ändernde Element im HTML- DOM aktualisiert.
 \end{itemize}
-Neben dem Verwenden auf der clientseite, 
+Neben dem Verwenden auf der Clientseite, 
 ermöglichen virtuelle Document Object Models, 
-erst das serverseitige rendern moderner Single Page Applications. 
+erst das serverseitige Rendern moderner Single Page Anwendungen. 
 Dadurch, dass das virtuelle DOM in Form von JavaScript dargestellt wird und 
 somit unabhängig von dem Browser ist, 
 ist es möglich, dies auf der Serverseite zu verwenden. 
 Beim ersten Aufrufen einer Universal Rendering Webseite, 
 wird das virtuelles DOM verwendet um ein HTML Dokument zu generieren. 
-Der Client kann sofort nach dem Erhalten des Dokumentes mit dem rendern beginnen und 
+Der Client kann sofort nach Erhalten des Dokumentes mit dem Rendern beginnen und 
 es somit zeitnah für den Benutzer darstellen. \cite{krajka_2015}
 \\
 \\
-Vue.js und \textit{React} besitzen für das Serverseitigen rendern eine \textit{renderToString()} Funktion. 
+Vue.js und \textit{React} besitzen für das serverseitigen Rendern eine \textit{renderToString()} Funktion. 
 Diese Funktion erzeugt aus der aktuellen Instanz des Frameworks, 
 auf der Serverseite, 
 mithilfe eines virtuellen DOM ein HTML String. 
 Dieser wird dem Client beim ersten Aufrufen der Website zurückgegeben.
 \\
 \\
-Das rendern auf der Serverseite kostet allerdings Zeit und Performance. 
+Das Rendern auf der Serverseite kostet allerdings Zeit und Performance. 
 Das Rendern einer 1 Megabyte Anwendung mithilfe der \textit{renderToString() }
 Funktion benötigt bis zu 1 Sekunde. 
 Zusätzlich läuft die render Funktion in Node.js, 
@@ -576,7 +576,7 @@ Dabei erzeugt der Server einen asynchronen HTML Stream an Daten,
 dies ermöglicht dem Browser die Seite zu rendern, 
 bevor die Antwort abgeschlossen ist. 
 Dadurch bleibt die TTFB gleich und 
-wird nicht erhöht sich nicht durch größere Webseiten. 
+erhöht sich nicht durch größere Webseiten. 
 Eine weitere Möglichkeit zur Verbesserung der TTFB und Entlastung des Servers, 
 ist das Verwenden von Caching.
 
